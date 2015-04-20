@@ -107,12 +107,11 @@ public final class PidUtil {
 
   /**
    * @return PID of the UNIX process.
-   * @throws SecurityException 
-   * @throws NoSuchFieldException 
-   * @throws IllegalAccessException 
-   * @throws IllegalArgumentException 
+   * @throws NoSuchFieldException
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
    */
-  private static int getPidFromUnixProcess(Process process) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+  private static int getPidFromUnixProcess(Process process) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
     Field f = process.getClass().getDeclaredField("pid");
     f.setAccessible(true);
     return f.getInt(process);
@@ -122,18 +121,16 @@ public final class PidUtil {
 
   /**
    * @return PID of the Windows process.
-   * @throws IllegalAccessException 
-   * @throws IllegalArgumentException 
-   * @throws SecurityException 
-   * @throws NoSuchFieldException 
+   * @throws IllegalAccessException
+   * @throws NoSuchFieldException
    *
    * @see http://www.golesny.de/p/code/javagetpid
    */
-  private static int getPidfromWin32Process(Process process) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+  private static int getPidfromWin32Process(Process process) throws NoSuchFieldException, IllegalAccessException {
     return getPidfromHandle(getHandle(process));
   }
 
-  private static long getHandle(Process process) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+  private static long getHandle(Process process) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
     Field f = process.getClass().getDeclaredField("handle");
     f.setAccessible(true);
     return f.getLong(process);
