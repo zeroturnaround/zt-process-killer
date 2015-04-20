@@ -58,7 +58,7 @@ has method **setIncludeChildren** to also stop child processes in case the root 
 
 ### Examples
 
-* Gey my PID
+* Get my PID
 
 ```java
 int pid = PidUtil.getMyPid();
