@@ -1,4 +1,4 @@
-# System Process Utils
+# Process Killer
 
 ### Continuous Integration 
 [![Build Status](https://travis-ci.org/zeroturnaround/zt-process.png)](https://travis-ci.org/zeroturnaround/zt-process)
