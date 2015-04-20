@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.zeroturnaround</groupId>
-  <artifactId>zt-process</artifactId>
+  <artifactId>zt-process-killer</artifactId>
   <version>1.4-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>ZT Process</name>
+  <name>ZT Process Killer</name>
 
   <scm>
-    <connection>scm:git:git@github.com:zeroturnaround/zt-process.git</connection>
-    <url>scm:git:git@github.com:zeroturnaround/zt-process.git</url>
-    <developerConnection>scm:git:git@github.com:zeroturnaround/zt-process.git</developerConnection>
+    <connection>scm:git:git@github.com:zeroturnaround/zt-process-killer.git</connection>
+    <url>scm:git:git@github.com:zeroturnaround/zt-process-killer.git</url>
+    <developerConnection>scm:git:git@github.com:zeroturnaround/zt-process-killer.git</developerConnection>
   </scm>
 
   <distributionManagement>
@@ -156,7 +156,7 @@
     <name>ZeroTurnaround</name>
     <url>http://zeroturnaround.com/</url>
   </organization>
-  <url>https://github.com/zeroturnaround/zt-process</url>
+  <url>https://github.com/zeroturnaround/zt-process-killer</url>
   <description>A library for stopping external processes from Java.</description>
 
   <developers>
