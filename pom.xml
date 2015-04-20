@@ -7,36 +7,30 @@
   <name>ZT System Process Utils</name>
 
   <scm>
-    <connection>scm:hg:${basedir}</connection>
-    <developerConnection>scm:hg:${basedir}</developerConnection>
+    <connection>scm:git:git@github.com:zeroturnaround/zt-process.git</connection>
+    <url>scm:git:git@github.com:zeroturnaround/zt-process.git</url>
+    <developerConnection>scm:git:git@github.com:zeroturnaround/zt-process.git</developerConnection>
   </scm>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
   <distributionManagement>
     <repository>
-      <id>zt-public-releases</id>
-      <name>ZeroTurnaround Public Releases</name>
-      <url>dav:https://repos.zeroturnaround.com/nexus/content/repositories/zt-public-releases</url>
+      <id>sonatype-nexus-staging</id>
+      <name>Sonatype OSS Staging</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
       <layout>default</layout>
     </repository>
     <snapshotRepository>
-      <id>zt-public-snapshots</id>
-      <name>ZeroTurnaround Public Snapshots</name>
-      <url>dav:https://repos.zeroturnaround.com/nexus/content/repositories/zt-public-snapshots</url>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype OSS Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
       <layout>default</layout>
     </snapshotRepository>
   </distributionManagement>
 
-  <repositories>
-    <repository>
-      <id>zt-public</id>
-      <name>ZeroTurnaround Public Repository</name>
-      <url>dav:https://repos.zeroturnaround.com/nexus/content/repositories/zt-public</url>
-    </repository>
-  </repositories>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -118,4 +112,39 @@
       </extension>
     </extensions>
   </build>
+
+  <organization>
+    <name>ZeroTurnaround</name>
+    <url>http://zeroturnaround.com/</url>
+  </organization>
+  <url>https://github.com/zeroturnaround/zt-process</url>
+  <description>A library for stopping external processes from Java.</description>
+
+  <developers>
+    <developer>
+      <id>rein</id>
+      <name>Rein</name>
+      <email>rein@zeroturnaround.com</email>
+      <url>http://www.linkedin.com/in/reinra</url>
+      <organization>ZeroTurnaround</organization>
+      <organizationUrl>http://zeroturnaround.com</organizationUrl>
+    </developer>
+    <developer>
+      <id>toomasr</id>
+      <name>Toomas</name>
+      <email>toomas@zeroturnaround.com</email>
+      <url>http://www.linkedin.com/in/toomasr</url>
+      <organization>ZeroTurnaround</organization>
+      <organizationUrl>http://zeroturnaround.com</organizationUrl>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
 </project>
