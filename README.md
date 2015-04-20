@@ -9,8 +9,9 @@ The project was created in [ZeroTurnaround](http://zeroturnaround.com/) to have 
 It can stop processes started from Java as well as existing system processes based on their process ID (PID).
 
 ### Installation
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process)
 
-The project artifacts will be available in [Maven Central Repository](http://search.maven.org/).
+The project artifacts are available in [Maven Central Repository](http://search.maven.org/#browse%7C636943745).
 
 To include it in your maven project then you have to specify the dependency.
 
