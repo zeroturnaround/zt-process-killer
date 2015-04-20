@@ -1,7 +1,7 @@
 # ZT Process Killer
 
 ### Continuous Integration 
-[![Build Status](https://travis-ci.org/zeroturnaround/zt-process.png)](https://travis-ci.org/zeroturnaround/zt-process)
+[![Build Status](https://travis-ci.org/zeroturnaround/zt-process-killer.png)](https://travis-ci.org/zeroturnaround/zt-process-killer)
 
 ### Quick Overview
 
