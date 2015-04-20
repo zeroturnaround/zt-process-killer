@@ -16,7 +16,6 @@ TODO
 
 In Java [Process.destroy()](https://docs.oracle.com/javase/8/docs/api/java/lang/Process.html#destroy--) is ambiguous.
 On Windows it terminates processes forcibly. On UNIX it terminates them gracefully.
-Sine Java 8 [java.lang.Process](https://docs.oracle.com/javase/8/docs/api/java/lang/Process.html) has additional methods which we would also like to use in earlier Java versions.
 As invoking **kill** commands from Java is errorprone it should have an advised API and good test coverage.
 
 We had the following functional requirements:
