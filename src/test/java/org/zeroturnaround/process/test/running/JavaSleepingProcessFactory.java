@@ -1,6 +1,6 @@
-package org.zeroturnaround.kill.running;
+package org.zeroturnaround.process.test.running;
 
-import org.zeroturnaround.kill.Sleep;
+import org.zeroturnaround.process.test.Sleep;
 
 class JavaSleepingProcessFactory extends SleepingProcessFactory {
 

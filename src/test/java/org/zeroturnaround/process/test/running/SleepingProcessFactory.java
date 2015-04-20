@@ -1,4 +1,4 @@
-package org.zeroturnaround.kill.running;
+package org.zeroturnaround.process.test.running;
 
 import java.util.ArrayList;
 import java.util.Arrays;

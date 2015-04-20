@@ -1,4 +1,4 @@
-package org.zeroturnaround.kill;
+package org.zeroturnaround.process.test;
 
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.rules.TestWatcher;

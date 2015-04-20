@@ -1,4 +1,4 @@
-package org.zeroturnaround.kill;
+package org.zeroturnaround.process.test;
 
 import org.apache.commons.lang.SystemUtils;
 import org.junit.Assert;

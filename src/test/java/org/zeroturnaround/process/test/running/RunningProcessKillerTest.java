@@ -1,4 +1,4 @@
-package org.zeroturnaround.kill.running;
+package org.zeroturnaround.process.test.running;
 /*
  * Copyright (C) 2013 ZeroTurnaround <support@zeroturnaround.com>
  * Contains fragments of code from Apache Commons Exec, rights owned
@@ -34,8 +34,8 @@ import org.junit.runners.Parameterized.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zeroturnaround.exec.StartedProcess;
-import org.zeroturnaround.kill.BaseKillerTest;
-import org.zeroturnaround.kill.Sleep;
+import org.zeroturnaround.process.test.BaseKillerTest;
+import org.zeroturnaround.process.test.Sleep;
 import org.zeroturnaround.process.ProcessUtil;
 import org.zeroturnaround.process.Processes;
 import org.zeroturnaround.process.SystemProcess;

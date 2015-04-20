@@ -1,4 +1,4 @@
-package org.zeroturnaround.kill;
+package org.zeroturnaround.process.test;
 
 import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.StartedProcess;

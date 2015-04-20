@@ -1,4 +1,4 @@
-package org.zeroturnaround.kill;
+package org.zeroturnaround.process.test;
 /*
  * Copyright (C) 2013 ZeroTurnaround <support@zeroturnaround.com>
  * Contains fragments of code from Apache Commons Exec, rights owned
