@@ -10,7 +10,19 @@ It can stop processes started from Java as well as existing system processes bas
 
 ### Installation
 
-TODO
+The project artifacts will be available in [Maven Central Repository](http://search.maven.org/).
+
+To include it in your maven project then you have to specify the dependency.
+
+```xml
+...
+<dependency>
+    <groupId>org.zeroturnaround</groupId>
+    <artifactId>zt-process</artifactId>
+    <version>1.3</version>
+</dependency>
+...
+```
 
 ### Motivation
 
