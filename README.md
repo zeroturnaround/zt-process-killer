@@ -46,4 +46,73 @@ has method **setIncludeChildren** to also stop child processes in case the root 
 
 ### Examples
 
-TODO
+* Gey my PID
+
+```java
+int pid = PidUtil.getMyPid();
+System.out.println("My PID is " + pid);
+```
+
+<hr/>
+
+* Check whether a PID is alive
+
+```java
+int pid = Integer.parseInt(FileUtils.readFileToString(new File("pidfile")));
+PidProcess process = Processes.newPidProcess(pid);
+boolean isAlive = process.isAlive();
+System.out.println("PID " + pid + " is alive: " + isAlive);
+```
+
+<hr/>
+
+* Check whether a process is alive
+
+```java
+Process p = new ProcessBuilder("my-application").start();
+JavaProcess process = Processes.newJavaProcess(p);
+boolean isAlive = process.isAlive();
+System.out.println("Process " + process + " is alive: " + isAlive);
+```
+
+<hr/>
+
+* Wait until an already started process has finished
+
+```java
+int pid = Integer.parseInt(FileUtils.readFileToString(new File("pidfile")));
+PidProcess process = Processes.newPidProcess(pid);
+boolean finished = process.waitFor(10, TimeUnit.MINUTES);
+System.out.println("PID " + pid + " finished on time: " + finished);
+```
+
+<hr/>
+
+* Wait until the started process has finished
+
+```java
+Process p = new ProcessBuilder("my-application").start();
+JavaProcess process = Processes.newJavaProcess(p);
+boolean finished = process.waitFor(10, TimeUnit.MINUTES);
+System.out.println("Process " + process + " finished on time: " + finished);
+```
+
+<hr/>
+
+* Stop an already started process, timeout of 30 seconds for graceful stop, timeout of 10 seconds for forceful stop
+
+```java
+int pid = Integer.parseInt(FileUtils.readFileToString(new File("pidfile")));
+PidProcess process = Processes.newPidProcess(pid);
+ProcessUtil.destroyGracefullyOrForcefullyAndWait(process, 30, TimeUnit.SECONDS, 10, TimeUnit.SECONDS);
+```
+
+<hr/>
+
+* Stop the started process, timeout of 30 seconds for graceful stop, timeout of 10 seconds for forceful stop
+
+```java
+Process p = new ProcessBuilder("my-application").start();
+SystemProcess process = Processes.newStandardProcess(p);
+ProcessUtil.destroyGracefullyOrForcefullyAndWait(process, 30, TimeUnit.SECONDS, 10, TimeUnit.SECONDS);
+```
