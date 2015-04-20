@@ -33,7 +33,7 @@ public abstract class CompositeProcess extends AbstractProcess {
     return getClass().getSimpleName() + result.toString();
   }
 
-  protected static void invokeDestroy(SystemProcess killer, boolean forceful) throws UnsupportedOperationException, IOException, InterruptedException {
+  protected static void invokeDestroy(SystemProcess killer, boolean forceful) throws IOException, InterruptedException {
     if (forceful) {
       killer.destroyForcefully();
     }

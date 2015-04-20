@@ -16,7 +16,7 @@ import com.sun.jna.Pointer;
 /**
  * Helper methods for retrieving process IDs.
  */
-public class PidUtil {
+public final class PidUtil {
 
   private static final Logger log = LoggerFactory.getLogger(PidUtil.class);
 
@@ -27,8 +27,9 @@ public class PidUtil {
    */
   public static int getMyPid() {
     Integer result = MyPidHolder.MY_PID;
-    if (result == null)
+    if (result == null) {
       throw new UnsupportedOperationException("Could not detect my process ID.");
+    }
     return result;
   }
 
@@ -97,7 +98,7 @@ public class PidUtil {
       }
     }
     catch (Exception e) {
-      throw new IllegalStateException("Could not detect PID form " + process);
+      throw new IllegalStateException("Could not detect PID form " + process, e);
     }
     throw new IllegalArgumentException("Unknown process class " + type);
   }
@@ -106,8 +107,12 @@ public class PidUtil {
 
   /**
    * @return PID of the UNIX process.
+   * @throws SecurityException 
+   * @throws NoSuchFieldException 
+   * @throws IllegalAccessException 
+   * @throws IllegalArgumentException 
    */
-  private static int getPidFromUnixProcess(Process process) throws Exception {
+  private static int getPidFromUnixProcess(Process process) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
     Field f = process.getClass().getDeclaredField("pid");
     f.setAccessible(true);
     return f.getInt(process);
@@ -117,20 +122,24 @@ public class PidUtil {
 
   /**
    * @return PID of the Windows process.
+   * @throws IllegalAccessException 
+   * @throws IllegalArgumentException 
+   * @throws SecurityException 
+   * @throws NoSuchFieldException 
    *
    * @see http://www.golesny.de/p/code/javagetpid
    */
-  private static int getPidfromWin32Process(Process process) throws Exception {
+  private static int getPidfromWin32Process(Process process) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
     return getPidfromHandle(getHandle(process));
   }
 
-  private static long getHandle(Process process) throws Exception {
+  private static long getHandle(Process process) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
     Field f = process.getClass().getDeclaredField("handle");
     f.setAccessible(true);
     return f.getLong(process);
   }
 
-  private static int getPidfromHandle(long value) throws Exception {
+  private static int getPidfromHandle(long value) {
     Kernel32 kernel = Kernel32.INSTANCE;
     W32API.HANDLE handle = new W32API.HANDLE();
     handle.setPointer(Pointer.createConstant(value));

@@ -73,7 +73,7 @@ public interface SystemProcess {
    * @return this process object.
    * @throws UnsupportedOperationException if this implementation cannot gracefully terminate any process.
    */
-  SystemProcess destroyGracefully() throws IOException, InterruptedException, UnsupportedOperationException;
+  SystemProcess destroyGracefully() throws IOException, InterruptedException;
 
   /**
    * Kills this process. The process is forcibly terminated (like <code>kill -KILL</code> does).
@@ -89,6 +89,6 @@ public interface SystemProcess {
    * @return this process object.
    * @throws UnsupportedOperationException if this implementation cannot forcibly terminate any process.
    */
-  SystemProcess destroyForcefully() throws IOException, InterruptedException, UnsupportedOperationException;
+  SystemProcess destroyForcefully() throws IOException, InterruptedException;
 
 }

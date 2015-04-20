@@ -85,7 +85,7 @@ public abstract class AbstractProcess implements SystemProcess {
    * @throws UnsupportedOperationException if this killer object is unable to gracefully terminate any process.
    */
   @Override
-  public AbstractProcess destroyGracefully() throws IOException, InterruptedException, UnsupportedOperationException {
+  public AbstractProcess destroyGracefully() throws IOException, InterruptedException {
     destroy(false);
     return this;
   }
@@ -105,7 +105,7 @@ public abstract class AbstractProcess implements SystemProcess {
    * @throws UnsupportedOperationException if this killer object is unable to forcibly terminate any process.
    */
   @Override
-  public AbstractProcess destroyForcefully() throws IOException, InterruptedException, UnsupportedOperationException {
+  public AbstractProcess destroyForcefully() throws IOException, InterruptedException {
     destroy(true);
     return this;
   }
