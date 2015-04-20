@@ -23,8 +23,9 @@ We had the following functional requirements:
 
 * check whether a process is alive
 * wait until a process has finished
-* terminate a process gracefully (except on Windows)
+* terminate a process gracefully (by default disabled on Windows as it's unsupported - [WindowsProcess](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/WindowsProcess.java))
 * terminate a process forcibly
+* get the process ID (PID) of running JVM
 
 and these non-functional requirements:
 
