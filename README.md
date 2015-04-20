@@ -31,10 +31,12 @@ and these non-functional requirements:
 
 * abstraction of processes regardless they are started from Java or not (use process ID) - [SystemProcess](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/SystemProcess.java)
 * have process API similar to [java.lang.Process](https://docs.oracle.com/javase/8/docs/api/java/lang/Process.html) 
-* backport Java 8 **java.lang.Process** methods
 * all waiting methods should have one version with timeout and another without it 
 * stopping operation should be idempotent - if a process was already finished it is a success 
 * separate generic behavior from process implementation - [ProcessUtil](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/ProcessUtil.java)
+* support alternative implementations for stopping same process - [OrProcess](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/OrProcess.java)
+* simple factory for creating process instances - [Processes](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/Processes.java)
+* invoke Java 8 **java.lang.Process** methods if possible - [Java8Process](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/Java8Process.java)
 
 Limitations:
 
