@@ -61,8 +61,17 @@ public class Processes {
 
   /**
    * Combines existing {@link SystemProcess} objects as alternative implementations for a single process.
+   * 
+   * @deprecated Use {@link #newProcessWithAlternatives(SystemProcess...)} instead.
    */
   public static SystemProcess newProcessWithAtlernatives(SystemProcess... processes) {
+    return newProcessWithAtlernatives(processes);
+  }
+
+  /**
+   * Combines existing {@link SystemProcess} objects as alternative implementations for a single process.
+   */
+  public static SystemProcess newProcessWithAlternatives(SystemProcess... processes) {
     return new OrProcess(Arrays.asList(processes));
   }
 
