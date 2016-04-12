@@ -1,6 +1,10 @@
 ********************************************
-  ZT Process Utils Changelog
+  ZT Process Killer Changelog
 ********************************************
+
+1.4 (12th April 2016)
+* Renamed zt-process as zt-process-killer
+* Bumped JNA version
 
 1.3 (20th April 2015)
 * Initial public version
