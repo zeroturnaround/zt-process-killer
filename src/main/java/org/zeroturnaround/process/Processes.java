@@ -65,7 +65,7 @@ public class Processes {
    * @deprecated Use {@link #newProcessWithAlternatives(SystemProcess...)} instead.
    */
   public static SystemProcess newProcessWithAtlernatives(SystemProcess... processes) {
-    return newProcessWithAtlernatives(processes);
+    return newProcessWithAlternatives(processes);
   }
 
   /**
