@@ -9,7 +9,7 @@ The project was created in [ZeroTurnaround](http://zeroturnaround.com/) to have 
 It can stop processes started from Java (e.g. with [zt-exec](https://github.com/zeroturnaround/zt-exec)) as well as existing system processes based on their process ID (PID).
 
 ### Installation
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process-killer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process-killer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process-killer)
 
 The project artifacts are available in [Maven Central Repository](http://search.maven.org/#browse%7C636943745).
 
