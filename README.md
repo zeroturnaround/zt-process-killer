@@ -19,7 +19,7 @@ To include it in your maven project then you have to specify the dependency.
 ...
 <dependency>
     <groupId>org.zeroturnaround</groupId>
-    <artifactId>zt-process</artifactId>
+    <artifactId>zt-process-killer</artifactId>
     <version>1.3</version>
 </dependency>
 ...
@@ -35,25 +35,25 @@ We had the following functional requirements:
 
 * check whether a process is alive
 * wait until a process has finished
-* terminate a process gracefully (by default disabled on Windows as it's unsupported - [WindowsProcess](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/WindowsProcess.java))
+* terminate a process gracefully (by default disabled on Windows as it's unsupported - [WindowsProcess](https://github.com/zeroturnaround/zt-process-killer/blob/master/src/main/java/org/zeroturnaround/process/WindowsProcess.java))
 * terminate a process forcibly
 * get the process ID (PID) of running JVM
 
 and these non-functional requirements:
 
-* abstraction of processes regardless they are started from Java or not (use process ID) - [SystemProcess](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/SystemProcess.java)
+* abstraction of processes regardless they are started from Java or not (use process ID) - [SystemProcess](https://github.com/zeroturnaround/zt-process-killer/blob/master/src/main/java/org/zeroturnaround/process/SystemProcess.java)
 * have process API similar to [java.lang.Process](https://docs.oracle.com/javase/8/docs/api/java/lang/Process.html) 
 * all waiting methods should have one version with timeout and another without it 
 * stopping operation should be idempotent - if a process was already finished it is a success 
-* separate generic behavior from process implementation - [ProcessUtil](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/ProcessUtil.java)
-* support alternative implementations for stopping same process - [OrProcess](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/OrProcess.java)
-* simple factory for creating process instances - [Processes](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/Processes.java)
-* invoke Java 8 **java.lang.Process** methods if possible - [Java8Process](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/Java8Process.java)
+* separate generic behavior from process implementation - [ProcessUtil](https://github.com/zeroturnaround/zt-process-killer/blob/master/src/main/java/org/zeroturnaround/process/ProcessUtil.java)
+* support alternative implementations for stopping same process - [OrProcess](https://github.com/zeroturnaround/zt-process-killer/blob/master/src/main/java/org/zeroturnaround/process/OrProcess.java)
+* simple factory for creating process instances - [Processes](https://github.com/zeroturnaround/zt-process-killer/blob/master/src/main/java/org/zeroturnaround/process/Processes.java)
+* invoke Java 8 **java.lang.Process** methods if possible - [Java8Process](https://github.com/zeroturnaround/zt-process-killer/blob/master/src/main/java/org/zeroturnaround/process/Java8Process.java)
 
 Limitations:
 
 * As the process abstraction is also used for already running processes it can't access their streams or exit value.
-* The scope of this project is stopping single processes. However [WindowsProcess](https://github.com/zeroturnaround/zt-process/blob/master/src/main/java/org/zeroturnaround/process/WindowsProcess.java)
+* The scope of this project is stopping single processes. However [WindowsProcess](https://github.com/zeroturnaround/zt-process-killer/blob/master/src/main/java/org/zeroturnaround/process/WindowsProcess.java)
 has method **setIncludeChildren** to also stop child processes in case the root process is still running.
 
 ### Examples
