@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
  * instead of returning a <code>false</code> like {@link SystemProcess} does.
  * Also all methods log a message in case the operation succeeded including the time it took.
  * <p>
- * Notice that methods that destroy a process don't include destroying operation itself in the timeout period. They start measuring time after sending the destroy signal.
- * Also if the current thread gets interrupted it may also interrupt sending the destroy signal itself not just the waiting period after it. So if the current thread gets
+ * Notice that methods that destroy a process do not include destroying operation itself in the timeout period. They start measuring time after sending the destroy signal.
+ * Also if the current thread is interrupted it may also interrupt sending the destroy signal itself not just the waiting period after it. So if the current thread gets
  * interrupted there's no guarantee that the target process actually got signaled.
  *
  * @see SystemProcess
@@ -25,11 +25,11 @@ public class ProcessUtil {
   private static final Logger log = LoggerFactory.getLogger(ProcessUtil.class);
 
   /**
-   * Waits until the given process finishes or the current thread gets interrupted.
+   * Waits until the given process finishes or the current thread is interrupted.
    *
    * @param process the target process.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
+   * @throws InterruptedException if the current thread was interrupted.
    */
   public static void waitFor(SystemProcess process) throws InterruptedException {
     log.info("Waiting for {} to finish.", process);
@@ -37,14 +37,14 @@ public class ProcessUtil {
   }
 
   /**
-   * Waits until the given process finishes, a timeout occurs or the current thread gets interrupted.
+   * Waits until the given process finishes, a timeout is reached or the current thread is interrupted.
    *
    * @param process the target process.
    * @param timeout the maximum time to wait until the process finishes.
    * @param unit the time unit of the timeout argument.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
-   * @throws TimeoutException the timeout elapsed before the process finished.
+   * @throws InterruptedException if the current thread was interrupted.
+   * @throws TimeoutException if timeout was reached before the process finished.
    */
   public static void waitFor(SystemProcess process, long timeout, TimeUnit unit) throws InterruptedException, TimeoutException {
     log.info("Waiting for {} to finish.", process);
@@ -52,11 +52,11 @@ public class ProcessUtil {
   }
 
   /**
-   * Destroys the given process gracefully and waits until it finishes or the current thread gets interrupted.
+   * Destroys the given process gracefully and waits until it finishes or the current thread is interrupted.
    *
    * @param process the target process.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
+   * @throws InterruptedException if the current thread was interrupted.
    */
   public static void destroyGracefullyAndWait(SystemProcess process) throws IOException, InterruptedException {
     Stopwatch sw = Stopwatch.createStarted();
@@ -65,14 +65,14 @@ public class ProcessUtil {
   }
 
   /**
-   * Destroys the given process gracefully and waits until it finishes, a timeout occurs or the current thread gets interrupted.
+   * Destroys the given process gracefully and waits until it finishes, a timeout occurs or the current thread is interrupted.
    *
    * @param process the target process.
    * @param timeout the maximum time to wait until the process finishes.
    * @param unit the time unit of the timeout argument.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
-   * @throws TimeoutException the timeout elapsed before the process finished.
+   * @throws InterruptedException if the current thread was interrupted.
+   * @throws TimeoutException if timeout was reached before the process finished.
    */
   public static void destroyGracefullyAndWait(SystemProcess process, long timeout, TimeUnit unit) throws IOException, InterruptedException, TimeoutException {
     Stopwatch sw = Stopwatch.createStarted();
@@ -81,11 +81,11 @@ public class ProcessUtil {
   }
 
   /**
-   * Destroys the given process forcefully and waits until it finishes or the current thread gets interrupted.
+   * Destroys the given process forcefully and waits until it finishes or the current thread is interrupted.
    *
    * @param process the target process.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
+   * @throws InterruptedException if the current thread was interrupted.
    */
   public static void destroyForcefullyAndWait(SystemProcess process) throws IOException, InterruptedException {
     Stopwatch sw = Stopwatch.createStarted();
@@ -94,14 +94,14 @@ public class ProcessUtil {
   }
 
   /**
-   * Destroys the given process forcefully and waits until it finishes, a timeout occurs or the current thread gets interrupted.
+   * Destroys the given process forcefully and waits until it finishes, a timeout occurs or the current thread is interrupted.
    *
    * @param process the target process.
    * @param timeout the maximum time to wait until the process finishes.
    * @param unit the time unit of the timeout argument.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
-   * @throws TimeoutException the timeout elapsed before the process finished.
+   * @throws InterruptedException if the current thread was interrupted.
+   * @throws TimeoutException if timeout was reached before the process finished.
    */
   public static void destroyForcefullyAndWait(SystemProcess process, long timeout, TimeUnit unit) throws IOException, InterruptedException, TimeoutException {
     Stopwatch sw = Stopwatch.createStarted();
@@ -110,13 +110,13 @@ public class ProcessUtil {
   }
 
   /**
-   * Destroys the given process gracefully and waits until it finishes or the current thread gets interrupted.
-   * If the gracefully destroying operation throws an exception (e.g. it's unsupported)
-   * it destroys the process forcefully and waits until it finishes or the current thread gets interrupted.
+   * Destroys the given process gracefully and waits until it finishes or the current thread is interrupted.
+   * If the graceful destroy operation throws an exception (e.g. it's unsupported)
+   * it destroys the process forcefully and waits until it finishes or the current thread is interrupted.
    *
    * @param process the target process.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
+   * @throws InterruptedException if the current thread was interrupted.
    */
   public static void destroyGracefullyOrForcefullyAndWait(SystemProcess process) throws IOException, InterruptedException {
     try {
@@ -133,15 +133,15 @@ public class ProcessUtil {
   }
 
   /**
-   * Destroys the given process gracefully and waits until it finishes, a timeout occurs or the current thread gets interrupted.
-   * If the gracefully destroying operation throws an exception (e.g. it's unsupported) or a timeout is reached
-   * it destroys the process forcefully and waits until it finishes or the current thread gets interrupted (no timeout is used in this case).
+   * Destroys the given process gracefully and waits until it finishes, a timeout occurs or the current thread is interrupted.
+   * If the graceful destroy operation throws an exception (e.g. it's unsupported) or a timeout is reached
+   * it destroys the process forcefully and waits until it finishes or the current thread is interrupted (no timeout is used in this case).
    *
    * @param process the target process.
-   * @param timeout the maximum time to wait until the process finishes after the gracefully destroying operation.
+   * @param timeout the maximum time to wait until the process finishes after the graceful destroy operation.
    * @param unit the time unit of the timeout argument.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
+   * @throws InterruptedException if the current thread was interrupted.
    */
   public static void destroyGracefullyOrForcefullyAndWait(SystemProcess process, long gracefulTimeout, TimeUnit gracefulTimeoutUnit) throws IOException, InterruptedException {
     if (tryDestroyGracefully(process, gracefulTimeout, gracefulTimeoutUnit)) {
@@ -151,18 +151,18 @@ public class ProcessUtil {
   }
 
   /**
-   * Destroys the given process gracefully and waits until it finishes, first timeout occurs or the current thread gets interrupted.
-   * If the gracefully destroying operation throws an exception (e.g. it's unsupported) or a timeout is reached
-   * it destroys the process forcefully and waits until it finishes, second timeout occurs or the current thread gets interrupted.
+   * Destroys the given process gracefully and waits until it finishes, first timeout occurs or the current thread is interrupted.
+   * If the graceful destroy operation throws an exception (e.g. it's unsupported) or a timeout is reached
+   * it destroys the process forcefully and waits until it finishes, second timeout occurs or the current thread is interrupted.
    *
    * @param process the target process.
-   * @param gracefulTimeout the maximum time to wait until the process finishes after the gracefully destroying operation.
-   * @param gracefulTimeoutUnit the time unit of the first timeout argument.
-   * @param forcefulTimeout the maximum time to wait until the process finishes after the forcefully destroying operation.
-   * @param forcefulTimeoutUnit the time unit of the second timeout argument.
+   * @param gracefulTimeout the maximum time to wait until the process finishes after the graceful destroy operation.
+   * @param gracefulTimeoutUnit the time unit of the gracefulTimeout argument.
+   * @param forcefulTimeout the maximum time to wait until the process finishes after the forceful destroy operation.
+   * @param forcefulTimeoutUnit the time unit of the forcefulTimeout argument.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
-   * @throws TimeoutException the timeout elapsed before the process finished after the forcefully destroying operation.
+   * @throws InterruptedException if the current thread was interrupted.
+   * @throws TimeoutException if timeout was reached before the process finished (after the forceful destroy operation).
    */
   public static void destroyGracefullyOrForcefullyAndWait(SystemProcess process, long gracefulTimeout, TimeUnit gracefulTimeoutUnit, long forcefulTimeout, TimeUnit forcefulTimeoutUnit) throws IOException, InterruptedException, TimeoutException {
     if (tryDestroyGracefully(process, gracefulTimeout, gracefulTimeoutUnit)) {
@@ -189,14 +189,14 @@ public class ProcessUtil {
   }
 
   /**
-   * Waits until the given process finishes or the current thread gets interrupted.
+   * Waits until the given process finishes or the current thread is interrupted.
    *
    * @param process the target process.
    * @param sw stopwatch started before the main operation.
    * @param successFormat format for logging a message after the process has finished, including single <code>{}</code> as the process description placeholder,
    *    e.g. <code>"Process {} finished"</code>.
    *
-   * @throws InterruptedException if the current thread gets interrupted.
+   * @throws InterruptedException if the current thread was interrupted.
    */
   private static void waitFor(SystemProcess process, Stopwatch sw, String successFormat) throws InterruptedException {
     process.waitFor();
@@ -204,9 +204,8 @@ public class ProcessUtil {
     log.info(successFormat + " in {} ms.", process, duration);
   }
 
-
   /**
-   * Waits until the given process finishes, a timeout occurs or the current thread gets interrupted.
+   * Waits until the given process finishes, a timeout occurs or the current thread is interrupted.
    *
    * @param process the target process.
    * @param sw stopwatch started before the main operation.
@@ -217,7 +216,7 @@ public class ProcessUtil {
    * @param timeoutFormat format for the error message after the timeout is reached, including single <code>%s</code> as the process description placeholder,
    *    e.g. <code>"Process %s did not finish"</code>
    *
-   * @throws InterruptedException if the current thread gets interrupted.
+   * @throws InterruptedException if the current thread was interrupted.
    */
   private static void waitFor(SystemProcess process, Stopwatch sw, long timeout, TimeUnit unit, String successFormat, String timeoutFormat) throws InterruptedException, TimeoutException {
     if (!process.waitFor(timeout, unit)) {

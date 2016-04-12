@@ -6,12 +6,12 @@ import java.util.List;
 /**
  * Represents multiple processes.
  * <p>
- * It tries to kill all processes (invokes all child killers).
+ * It tries to kill all child processes.
  * If it fails to destroy any process it still tries to destroy other processes before actually throwing the initial error.
  * {@link #isAlive()} returns <code>true</code> if at least one of the processes is still alive.
  * {@link #isAllAlive()} returns <code>true</code> only if all processes are still alive.
  * <p>
- * If it has only one child it should act the same as this child alone.
+ * If it has only one child it acts the same as invoking the same method directly on the child.
  * </p>
  */
 public class AndProcess extends CompositeProcess {

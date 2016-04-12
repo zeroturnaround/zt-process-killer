@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Helepr methods for Reflection API.
+ * Helper methods for Reflection API.
  */
 class ReflectionUtil {
 

@@ -11,8 +11,8 @@ import org.apache.commons.lang.SystemUtils;
 public class Processes {
 
   /**
-   * Creates instance that represents the given {@link Process} by detecting its PID and
-   * using both {@link Process} object and the PID with external tools.
+   * Creates an instance that represents the given {@link Process} by detecting its PID
+   * using both, {@link Process} object and external tools.
    * Java APIs are tried before using the external tools.
    */
   public static SystemProcess newStandardProcess(Process process) {
@@ -20,7 +20,7 @@ public class Processes {
   }
 
   /**
-   * Creates instance that represents the given {@link Process} or the given PID.
+   * Creates an instance that represents the given {@link Process} or the given PID.
    * They are expected to belong to the same system process.
    * Java APIs are tried before using the external tools (PID value).
    */
@@ -29,7 +29,7 @@ public class Processes {
   }
 
   /**
-   * Creates instance that represents given {@link Process} object.
+   * Creates an instance that represents the given {@link Process} object.
    */
   public static JavaProcess newJavaProcess(Process process) {
     if (Java8Process.isSupported())
@@ -38,14 +38,16 @@ public class Processes {
   }
 
   /**
-   * Creates instance that represents PID value of the given {@link Process} and use external tools for the operations.
+   * Creates an instance that represents the PID value of the given {@link Process}.
+   * The instance uses external tools for killing the process.
    */
   public static PidProcess newPidProcess(Process process) {
     return newPidProcess(PidUtil.getPid(process));
   }
 
   /**
-   * Creates instance that represent the given PID value and use external tools for the operations.
+   * Creates an instance that represents the given PID value.
+   * The instance uses external tools for killing the process.
    */
   public static PidProcess newPidProcess(int pid) {
     if (SystemUtils.IS_OS_WINDOWS) {

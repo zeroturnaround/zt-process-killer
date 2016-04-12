@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Represents single system process containing alternative {@link SystemProcess} implementation to control it.
+ * Represents a single system process containing alternative {@link SystemProcess} implementations for controlling it.
  * Children are expected to throw {@link UnsupportedOperationException} for certain operations.
  * <p>
  * For any operation we try each children until it doesn't throw {@link UnsupportedOperationException}.
- * If all of them throw it we throw it as well.
+ * If all of them throw it, we throw it as well.
  * </p>
  * <p>
- * If it has only one child it should act the same as this child alone.
+ * If it has only one child it acts the same as invoking the same method directly on the child.
  * </p>
  */
 public class OrProcess extends CompositeProcess {

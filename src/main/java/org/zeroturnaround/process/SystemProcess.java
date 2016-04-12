@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
  * </p>
  * <p>
  * It is implementation specific whether the represented system process is a sub process of this JVM
- * or some external process referred by a process ID, service name or etc.
- * An instance of this class may also represent more than one process. In this case it is considered alive as long as any of the processes is alive.
+ * or some external process referred by a process ID, service name, etc.
+ * An instance of this class may also represent more than one process. In this case it is considered alive as long as any of the processes are alive.
  * </p>
  * <p>
  * Some of the operations may be unsupported by throwing {@link UnsupportedOperationException}.
@@ -26,7 +26,7 @@ public interface SystemProcess {
   /**
    * Tests whether this process is alive.
    * <p>
-   * This operation may also take some time to finish.
+   * This operation may take some time to finish.
    * </p>
    *
    * @return <code>true</code> if this process is alive, <code>false</code> if it is finished or not found.
@@ -43,19 +43,19 @@ public interface SystemProcess {
   void waitFor() throws InterruptedException;
 
   /**
-   * Causes the current thread to wait, if necessary, until the process handled by this killer has terminated, or the specified waiting time elapses.
+   * Causes the current thread to wait, if necessary, until the process has terminated, or the specified timeout is reached.
    * <p>
    * If the process has already terminated then this method returns immediately with the value <code>true</code>.
    * If the process has not terminated and the timeout value is less than, or equal to, zero, then this method returns immediately with the value <code>false</code>.
    * </p>
    * <p>
-   * Checking the process status itself may also take time.
-   * If the process has exited but timeout is reached before the checking operation finishes <code>false</code> is returned.
+   * Checking the process status may take time.
+   * If the process has exited but timeout is reached before the checking operation finishes, <code>false</code> is returned.
    * </p>
    *
-   * @param timeout the maximum time to wait
-   * @param unit the time unit of the timeout argument
-   * @return <code>true</code> if the process has exited and <code>false</code> if the waiting time elapsed before the process has exited.
+   * @param timeout the maximum time to wait.
+   * @param unit the time unit of the timeout argument.
+   * @return <code>true</code> if the process has exited and <code>false</code> if the timeout is reached before the process exited.
    */
   boolean waitFor(long timeout, TimeUnit unit) throws InterruptedException;
 
@@ -71,7 +71,7 @@ public interface SystemProcess {
    * </p>
    *
    * @return this process object.
-   * @throws UnsupportedOperationException if this implementation cannot gracefully terminate any process.
+   * @throws UnsupportedOperationException if this implementation is unable to gracefully terminate the process.
    */
   SystemProcess destroyGracefully() throws IOException, InterruptedException;
 
@@ -87,7 +87,7 @@ public interface SystemProcess {
    * </p>
    *
    * @return this process object.
-   * @throws UnsupportedOperationException if this implementation cannot forcibly terminate any process.
+   * @throws UnsupportedOperationException if this implementation is unable to forcibly terminate the process.
    */
   SystemProcess destroyForcefully() throws IOException, InterruptedException;
 

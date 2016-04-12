@@ -1,7 +1,7 @@
 package org.zeroturnaround.process;
 
 /**
- * Base killer implementation for <code>PID</code> (Process ID) values.
+ * Base implementation for processes that use <code>PID</code> (Process ID) values.
  */
 public abstract class PidProcess extends PollingProcess {
 
@@ -15,8 +15,6 @@ public abstract class PidProcess extends PollingProcess {
   }
 
   /**
-   * Returns the process ID.
-   *
    * @return the process ID.
    */
   public int getPid() {

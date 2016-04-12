@@ -21,8 +21,6 @@ public final class PidUtil {
   private static final Logger log = LoggerFactory.getLogger(PidUtil.class);
 
   /**
-   * Returns process ID of the current JVM.
-   *
    * @return process ID of the current JVM.
    */
   public static int getMyPid() {
