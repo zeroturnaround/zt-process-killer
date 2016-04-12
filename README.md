@@ -6,7 +6,7 @@
 ### Quick Overview
 
 The project was created in [ZeroTurnaround](http://zeroturnaround.com/) to have a stable base functionality of stopping running processes from Java.
-It can stop processes started from Java as well as existing system processes based on their process ID (PID).
+It can stop processes started from Java (e.g. with [zt-exec](https://github.com/zeroturnaround/zt-exec)) as well as existing system processes based on their process ID (PID).
 
 ### Installation
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process)
