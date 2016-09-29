@@ -1,11 +1,13 @@
 package org.zeroturnaround.process;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.zeroturnaround.exec.InvalidExitValueException;
 import org.zeroturnaround.exec.MessageLoggers;
 import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.stream.slf4j.Slf4jStream;
+import org.zeroturnaround.process.win.WmicUtil;
 
 /**
  * Process implementation for Windows PID values.
@@ -25,6 +27,11 @@ public class WindowsProcess extends PidProcess {
   private static final int EXIT_CODE_NO_SUCH_PROCESS = 128;
 
   /**
+   * Path to the <code>wmic.exe</code> command.
+   */
+  private File wmicPath;
+
+  /**
    * <code>true</code> if <code>taskkill</code> is used for graceful destroying, <code>false</code> if {@link UnsupportedOperationException} is thrown instead.
    */
   private boolean gracefulDestroyEnabled;
@@ -35,7 +42,20 @@ public class WindowsProcess extends PidProcess {
   private boolean includeChildren;
 
   public WindowsProcess(int pid) {
+    this(pid, WmicUtil.getPath());
+  }
+
+  public WindowsProcess(int pid, File wmicPath) {
     super(pid);
+    this.wmicPath = wmicPath;
+  }
+
+  public File getWmicPath() {
+    return wmicPath;
+  }
+
+  public void setWmicPath(File wmicPath) {
+    this.wmicPath = wmicPath;
   }
 
   public boolean isGracefulDestroyEnabled() {
@@ -56,7 +76,7 @@ public class WindowsProcess extends PidProcess {
 
   public boolean isAlive() throws IOException, InterruptedException {
     String out = new ProcessExecutor()
-        .commandSplit(String.format("wmic process where ProcessId=%d get ProcessId", pid))
+        .commandSplit(String.format("%s process where ProcessId=%d get ProcessId", wmicPath, pid))
         .readOutput(true)
         .redirectOutput(Slf4jStream.ofCaller().asTrace())
         .setMessageLogger(MessageLoggers.TRACE)
