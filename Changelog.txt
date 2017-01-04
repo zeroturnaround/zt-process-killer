@@ -2,6 +2,9 @@
   ZT Process Killer Changelog
 ********************************************
 
+1.5 (4th January 2017)
+* Fixed finding WMIC.exe for checking process status on Windows
+
 1.4 (12th April 2016)
 * Renamed zt-process as zt-process-killer
 * Bumped JNA version
