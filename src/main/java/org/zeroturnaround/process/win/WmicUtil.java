@@ -1,6 +1,8 @@
 package org.zeroturnaround.process.win;
 
 import java.io.File;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.SystemUtils;
 import org.slf4j.Logger;
@@ -23,7 +25,7 @@ public class WmicUtil {
     String name = "WMIC.exe";
     File result = new File(name); // As a fallback use a relative path
     if (SystemUtils.IS_OS_WINDOWS) {
-      String windows = System.getenv().get("SYSTEMROOT"); // C:\Windows
+      String windows = getSystemRoot();
       if (windows != null) {
         result = new File(windows, "System32/Wbem/" + name);
       }
@@ -32,4 +34,18 @@ public class WmicUtil {
     return result;
   }
 
+  /**
+   * Gets the system root environment variable value which on most Windows systems is "C:\Windows".
+   *
+   * We have seen that on some machines the variable is written in different cases. Therefor we need to do a case insensitive search.
+   */
+  private static String getSystemRoot() {
+    Map<String, String> envMap = System.getenv();
+    for (Entry<String, String> envVar : envMap.entrySet()) {
+      if ("systemroot".equalsIgnoreCase(envVar.getKey())) {
+        return envVar.getValue();
+      }
+    }
+    return null;
+  }
 }
