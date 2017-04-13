@@ -31,7 +31,9 @@ public abstract class PollingProcess extends AbstractProcess {
         }
       }
       catch (IOException e) {
-        log.debug("Failed to check if process {} is alive:", getDescription(), e);
+        String message = "Failed to check if process " + getDescription() + " is alive"; 
+        log.debug(message, e);
+        throw new RuntimeException(message, e);
       }
       Thread.sleep(intervalForCheckingFinished);
     }
