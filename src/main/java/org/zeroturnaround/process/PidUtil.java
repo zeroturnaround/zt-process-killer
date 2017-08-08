@@ -42,9 +42,16 @@ public final class PidUtil {
       Integer result = null;
       try {
         RuntimeMXBean rtb = ManagementFactory.getRuntimeMXBean();
-        String processName = rtb.getName();
-        result = getPidFromProcessName(processName);
-        log.debug("My process name: {}", processName);
+        /*
+         * Avoid finding process name if possible as it does a DNS lookup for the "localhost".
+         * In some VPN configurations it might take up to 5 seconds.
+         */
+        result = SunPidUtil.tryGetPid(rtb);
+        if (result == null) {
+          String processName = rtb.getName();
+          result = getPidFromProcessName(processName);
+          log.debug("My process name: {}", processName);
+        }
         log.debug("My PID: {}", result);
       }
       catch (Exception e) {
