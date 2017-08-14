@@ -30,6 +30,8 @@ public interface SystemProcess {
    * </p>
    *
    * @return <code>true</code> if this process is alive, <code>false</code> if it is finished or not found.
+   * @throws IOException on IO error.
+   * @throws InterruptedException if interrupted.
    */
   boolean isAlive() throws IOException, InterruptedException;
 
@@ -39,6 +41,7 @@ public interface SystemProcess {
    * This method returns immediately if the process has already terminated.
    * If the process has not yet terminated, the calling thread will be blocked until the process exits.
    * </p>
+   * @throws InterruptedException if interrupted.
    */
   void waitFor() throws InterruptedException;
 
@@ -56,6 +59,7 @@ public interface SystemProcess {
    * @param timeout the maximum time to wait.
    * @param unit the time unit of the timeout argument.
    * @return <code>true</code> if the process has exited and <code>false</code> if the timeout is reached before the process exited.
+   * @throws InterruptedException if interrupted.
    */
   boolean waitFor(long timeout, TimeUnit unit) throws InterruptedException;
 
@@ -72,6 +76,8 @@ public interface SystemProcess {
    *
    * @return this process object.
    * @throws UnsupportedOperationException if this implementation is unable to gracefully terminate the process.
+   * @throws IOException on IO error.
+   * @throws InterruptedException if interrupted.
    */
   SystemProcess destroyGracefully() throws IOException, InterruptedException;
 
@@ -88,6 +94,8 @@ public interface SystemProcess {
    *
    * @return this process object.
    * @throws UnsupportedOperationException if this implementation is unable to forcibly terminate the process.
+   * @throws IOException on IO error.
+   * @throws InterruptedException if interrupted.
    */
   SystemProcess destroyForcefully() throws IOException, InterruptedException;
 

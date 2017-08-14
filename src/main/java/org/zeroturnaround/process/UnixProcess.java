@@ -49,6 +49,9 @@ public class UnixProcess extends PidProcess {
    *
    * @param signal name of the signal.
    * @return <code>true</code> if this process received the signal, <code>false</code> if this process was not found (any more).
+   *
+   * @throws IOException on IO error.
+   * @throws InterruptedException if interrupted.
    */
   public boolean kill(String signal) throws IOException, InterruptedException {
     try {
@@ -66,6 +69,7 @@ public class UnixProcess extends PidProcess {
   }
 
   /**
+   * @param e process exited with an error code.
    * @return <code>true</code> if this exception indicates that the process was not found (any more).
    */
   protected boolean isNoSuchProcess(InvalidExitValueException e) {

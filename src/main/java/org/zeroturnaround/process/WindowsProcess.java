@@ -98,6 +98,9 @@ public class WindowsProcess extends PidProcess {
    *
    * @param forceful <code>true</code> if this process should be destroyed forcefully.
    * @return <code>true</code> if this process got the signal, <code>false</code> if the process was not found (any more).
+   *
+   * @throws IOException on IO error.
+   * @throws InterruptedException if interrupted.
    */
   public boolean taskkill(boolean forceful) throws IOException, InterruptedException {
     try {

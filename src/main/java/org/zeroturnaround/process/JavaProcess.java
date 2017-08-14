@@ -61,6 +61,10 @@ public class JavaProcess extends AbstractProcess {
   }
 
   /**
+   * Check if destroying the process is supported based on the OS and JVM version (regardless the process is running or not).
+   *
+   * @param forceful <code>true</code> if the process must be destroyed forcefully (like <code>kill -KILL</code>),
+   *    <code>false</code> if it must be destroyed gracefully (like <code>kill -TERM</code>).
    * @return <code>true</code> if {@link #invokeDestroy(boolean)} is supported with the given <code>forceful</code> flag on the given system.
    */
   protected boolean canDestroy(boolean forceful) {

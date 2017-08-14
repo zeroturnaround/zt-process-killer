@@ -32,10 +32,12 @@ public abstract class AbstractProcess implements SystemProcess {
    * <p>
    * If the process has already terminated then this method returns immediately with the value <code>true</code>.
    * If the process has not terminated and the timeout value is less than, or equal to, zero, then this method returns immediately with the value <code>false</code>.
+   * </p>
    *
    * @param timeout the maximum time to wait
    * @param unit the time unit of the timeout argument
    * @return <code>true</code> if the process has exited and <code>false</code> if the timeout is reached before the process has exited.
+   * @throws InterruptedException if interrupted.
    */
   @Override
   public boolean waitFor(long timeout, TimeUnit unit) throws InterruptedException {
@@ -81,6 +83,8 @@ public abstract class AbstractProcess implements SystemProcess {
    *
    * @return this process object.
    * @throws UnsupportedOperationException if this implementation is unable to gracefully terminate the process.
+   * @throws IOException on IO error.
+   * @throws InterruptedException if interrupted.
    */
   @Override
   public AbstractProcess destroyGracefully() throws IOException, InterruptedException {
@@ -101,6 +105,8 @@ public abstract class AbstractProcess implements SystemProcess {
    *
    * @return this process object.
    * @throws UnsupportedOperationException if this implementation is unable to gracefully terminate the process.
+   * @throws IOException on IO error.
+   * @throws InterruptedException if interrupted.
    */
   @Override
   public AbstractProcess destroyForcefully() throws IOException, InterruptedException {
@@ -121,8 +127,9 @@ public abstract class AbstractProcess implements SystemProcess {
    *
    * @param forceful <code>true</code> if the process must be destroyed forcefully (like <code>kill -KILL</code>),
    *    <code>false</code> if it must be destroyed gracefully (like <code>kill -TERM</code>).
-   * @return this process object.
    * @throws UnsupportedOperationException if this implementation is unable to terminate the process with this <code>forceful</code> value.
+   * @throws IOException on IO error.
+   * @throws InterruptedException if interrupted.
    */
   public abstract void destroy(boolean forceful) throws IOException, InterruptedException;
 
