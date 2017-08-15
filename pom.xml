@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.zeroturnaround</groupId>
   <artifactId>zt-process-killer</artifactId>
-  <version>1.8-SNAPSHOT</version>
+  <version>1.8</version>
   <packaging>jar</packaging>
   <name>ZT Process Killer</name>
 
@@ -10,7 +10,7 @@
     <connection>scm:git:git@github.com:zeroturnaround/zt-process-killer.git</connection>
     <url>scm:git:git@github.com:zeroturnaround/zt-process-killer.git</url>
     <developerConnection>scm:git:git@github.com:zeroturnaround/zt-process-killer.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>zt-process-killer-1.8</tag>
   </scm>
 
   <distributionManagement>
