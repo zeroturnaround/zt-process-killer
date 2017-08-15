@@ -2,6 +2,9 @@
   ZT Process Killer Changelog
 ********************************************
 
+1.8 (15th August 2017)
+* Avoid calling InetAddress.getLocalHost() in PidUtil.getMyPid()
+
 1.7 (17th April 2017)
 * Fixed finding WMIC.exe again
 * Fixed error handling of isAlive() on Windows
