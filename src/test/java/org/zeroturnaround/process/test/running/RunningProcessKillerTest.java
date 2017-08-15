@@ -34,6 +34,7 @@ import org.junit.runners.Parameterized.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zeroturnaround.exec.StartedProcess;
+import org.zeroturnaround.process.test.Action;
 import org.zeroturnaround.process.test.BaseKillerTest;
 import org.zeroturnaround.process.test.Sleep;
 import org.zeroturnaround.process.ProcessUtil;
@@ -92,11 +93,14 @@ public class RunningProcessKillerTest extends BaseKillerTest {
   @Test
   public void testIsAliveAndWait() throws Exception {
     javaLangProcess = sleepingProcessFactory.createSleepingProcess();
-    timeout(15, TimeUnit.SECONDS, () -> {
-      SystemProcess process = factory.create(javaLangProcess);
-      assertTrue(process.isAlive());
-      process.waitFor();
-      assertFalse(process.isAlive());
+    timeout(15, TimeUnit.SECONDS, new Action() {
+      @Override
+      public void run() throws Exception {
+        SystemProcess process = factory.create(javaLangProcess);
+        assertTrue(process.isAlive());
+        process.waitFor();
+        assertFalse(process.isAlive());
+      }
     });
   }
 
@@ -117,34 +121,40 @@ public class RunningProcessKillerTest extends BaseKillerTest {
   @Test
   public void testDestroy() throws Exception {
     javaLangProcess = sleepingProcessFactory.createSleepingProcess();
-    timeout(15, TimeUnit.SECONDS, () -> {
-      SystemProcess process = factory.create(javaLangProcess);
-      ProcessUtil.destroyGracefullyOrForcefullyAndWait(process);
-      assertFalse(process.isAlive());
+    timeout(15, TimeUnit.SECONDS, new Action() {
+      @Override
+      public void run() throws Exception {
+        SystemProcess process = factory.create(javaLangProcess);
+        ProcessUtil.destroyGracefullyOrForcefullyAndWait(process);
+        assertFalse(process.isAlive());
+      }
     });
   }
 
   @Test
   public void testDestroyGracefully() throws Exception {
-    StartedProcess sp = sleepingProcessFactory.sleep(15).readOutput(true).start();
+    final StartedProcess sp = sleepingProcessFactory.sleep(15).readOutput(true).start();
     // Use a bit shorter timeout than the process sleeps
-    timeout(14, TimeUnit.SECONDS, () -> {
-      javaLangProcess = sp.getProcess();
-      SystemProcess process = factory.create(javaLangProcess);
-      try {
-        // Let the main method start
-        Thread.sleep(1000);
+    timeout(14, TimeUnit.SECONDS, new Action() {
+      @Override
+      public void run() throws Exception {
+        javaLangProcess = sp.getProcess();
+        SystemProcess process = factory.create(javaLangProcess);
+        try {
+          // Let the main method start
+          Thread.sleep(1000);
 
-        process.destroyGracefully().waitFor();
-        assertFalse(process.isAlive());
-        if (sleepingProcessFactory.supportsShutdownFile()) {
-          // Shutdown hook must have been started
-          assertTrue(Sleep.getFile().exists());
+          process.destroyGracefully().waitFor();
+          assertFalse(process.isAlive());
+          if (sleepingProcessFactory.supportsShutdownFile()) {
+            // Shutdown hook must have been started
+            assertTrue(Sleep.getFile().exists());
+          }
         }
-      }
-      catch (UnsupportedOperationException e) {
-        if (isDestroyGracefullySupported(process)) {
-          throw e;
+        catch (UnsupportedOperationException e) {
+          if (isDestroyGracefullySupported(process)) {
+            throw e;
+          }
         }
       }
     });
@@ -152,25 +162,28 @@ public class RunningProcessKillerTest extends BaseKillerTest {
 
   @Test
   public void testDestroyForcefully() throws Exception {
-    StartedProcess sp = sleepingProcessFactory.sleep(15).readOutput(true).start();
+    final StartedProcess sp = sleepingProcessFactory.sleep(15).readOutput(true).start();
     // Use a bit shorter timeout than the process sleeps
-    timeout(14, TimeUnit.SECONDS, () -> {
-      javaLangProcess = sp.getProcess();
-      SystemProcess process = factory.create(javaLangProcess);
-      try {
-        // Let the main method start
-        Thread.sleep(1000);
+    timeout(14, TimeUnit.SECONDS, new Action() {
+      @Override
+      public void run() throws Exception {
+        javaLangProcess = sp.getProcess();
+        SystemProcess process = factory.create(javaLangProcess);
+        try {
+          // Let the main method start
+          Thread.sleep(1000);
 
-        process.destroyForcefully().waitFor();
-        assertFalse(process.isAlive());
-        if (sleepingProcessFactory.supportsShutdownFile()) {
-          // Shutdown hook must not have been started
-          assertFalse(Sleep.getFile().exists());
+          process.destroyForcefully().waitFor();
+          assertFalse(process.isAlive());
+          if (sleepingProcessFactory.supportsShutdownFile()) {
+            // Shutdown hook must not have been started
+            assertFalse(Sleep.getFile().exists());
+          }
         }
-      }
-      catch (UnsupportedOperationException e) {
-        if (isDestroyForcefullySupported(process)) {
-          throw e;
+        catch (UnsupportedOperationException e) {
+          if (isDestroyForcefullySupported(process)) {
+            throw e;
+          }
         }
       }
     });
