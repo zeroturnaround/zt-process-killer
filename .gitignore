@@ -6,3 +6,7 @@
 target
 zt-process.iml
 *.log
+
+shutdown.started
+
+zt-process-killer.iml

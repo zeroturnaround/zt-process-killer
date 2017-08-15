@@ -89,108 +89,118 @@ public class RunningProcessKillerTest extends BaseKillerTest {
     }
   }
 
-  @Test(timeout=5000)
+  @Test
   public void testIsAliveAndWait() throws Exception {
     javaLangProcess = sleepingProcessFactory.createSleepingProcess();
-    SystemProcess process = factory.create(javaLangProcess);
-    assertTrue(process.isAlive());
-    process.waitFor();
-    assertFalse(process.isAlive());
+    timeout(15, TimeUnit.SECONDS, () -> {
+      SystemProcess process = factory.create(javaLangProcess);
+      assertTrue(process.isAlive());
+      process.waitFor();
+      assertFalse(process.isAlive());
+    });
   }
 
-  @Test(timeout=15000)
+  @Test
   public void testWaitWithTimeout() throws Exception {
     javaLangProcess = sleepingProcessFactory.createSleepingProcess();
     SystemProcess process = factory.create(javaLangProcess);
-    assertTrue(process.waitFor(5, TimeUnit.SECONDS));
+    assertTrue(process.waitFor(15, TimeUnit.SECONDS));
   }
 
-  @Test(timeout=10000)
+  @Test
   public void testWaitWithTimeoutExceeds() throws Exception {
     javaLangProcess = sleepingProcessFactory.createSleepingProcess();
     SystemProcess killer = factory.create(javaLangProcess);
     assertFalse(killer.waitFor(1, TimeUnit.SECONDS));
   }
 
-  @Test(timeout=5000)
+  @Test
   public void testDestroy() throws Exception {
     javaLangProcess = sleepingProcessFactory.createSleepingProcess();
-    SystemProcess process = factory.create(javaLangProcess);
-    ProcessUtil.destroyGracefullyOrForcefullyAndWait(process);
-    assertFalse(process.isAlive());
+    timeout(15, TimeUnit.SECONDS, () -> {
+      SystemProcess process = factory.create(javaLangProcess);
+      ProcessUtil.destroyGracefullyOrForcefullyAndWait(process);
+      assertFalse(process.isAlive());
+    });
   }
 
-  @Test(timeout=5000)
+  @Test
   public void testDestroyGracefully() throws Exception {
-    StartedProcess sp = sleepingProcessFactory.sleep(6).readOutput(true).start();
-    javaLangProcess = sp.getProcess();
-    SystemProcess process = factory.create(javaLangProcess);
-    try {
-      // Let the main method start
-      Thread.sleep(1000);
+    StartedProcess sp = sleepingProcessFactory.sleep(15).readOutput(true).start();
+    // Use a bit shorter timeout than the process sleeps
+    timeout(14, TimeUnit.SECONDS, () -> {
+      javaLangProcess = sp.getProcess();
+      SystemProcess process = factory.create(javaLangProcess);
+      try {
+        // Let the main method start
+        Thread.sleep(1000);
 
-      process.destroyGracefully().waitFor();
-      assertFalse(process.isAlive());
-      if (sleepingProcessFactory.supportsShutdownFile()) {
-        // Shutdown hook must have been started
-        assertTrue(Sleep.getFile().exists());
+        process.destroyGracefully().waitFor();
+        assertFalse(process.isAlive());
+        if (sleepingProcessFactory.supportsShutdownFile()) {
+          // Shutdown hook must have been started
+          assertTrue(Sleep.getFile().exists());
+        }
       }
-    }
-    catch (UnsupportedOperationException e) {
-      if (isDestroyGracefullySupported(process)) {
-        throw e;
+      catch (UnsupportedOperationException e) {
+        if (isDestroyGracefullySupported(process)) {
+          throw e;
+        }
       }
-    }
+    });
   }
 
-  @Test(timeout=5000)
+  @Test
   public void testDestroyForcefully() throws Exception {
-    StartedProcess sp = sleepingProcessFactory.sleep(6).readOutput(true).start();
-    javaLangProcess = sp.getProcess();
-    SystemProcess process = factory.create(javaLangProcess);
-    try {
-      // Let the main method start
-      Thread.sleep(1000);
+    StartedProcess sp = sleepingProcessFactory.sleep(15).readOutput(true).start();
+    // Use a bit shorter timeout than the process sleeps
+    timeout(14, TimeUnit.SECONDS, () -> {
+      javaLangProcess = sp.getProcess();
+      SystemProcess process = factory.create(javaLangProcess);
+      try {
+        // Let the main method start
+        Thread.sleep(1000);
 
-      process.destroyForcefully().waitFor();
-      assertFalse(process.isAlive());
-      if (sleepingProcessFactory.supportsShutdownFile()) {
-        // Shutdown hook must not have been started
-        assertFalse(Sleep.getFile().exists());
+        process.destroyForcefully().waitFor();
+        assertFalse(process.isAlive());
+        if (sleepingProcessFactory.supportsShutdownFile()) {
+          // Shutdown hook must not have been started
+          assertFalse(Sleep.getFile().exists());
+        }
       }
-    }
-    catch (UnsupportedOperationException e) {
-      if (isDestroyForcefullySupported(process)) {
-        throw e;
+      catch (UnsupportedOperationException e) {
+        if (isDestroyForcefullySupported(process)) {
+          throw e;
+        }
       }
-    }
+    });
   }
 
-  // Killer Factories
+  // Process Factories
 
   private static final ProcessFactory[] PROCESS_FACTORIES = new ProcessFactory[] {
-    new ProcessKillerFactory(),
-    new PidKillerFactory(),
-    new StandardKillFactory()
+    new JavaProcessFactory(),
+    new PidKFactory(),
+    new StandardFactory()
   };
 
-  private static interface ProcessFactory {
+  private interface ProcessFactory {
     SystemProcess create(Process process);
   }
 
-  private static class ProcessKillerFactory implements ProcessFactory {
+  private static class JavaProcessFactory implements ProcessFactory {
     public SystemProcess create(Process process) {
       return Processes.newJavaProcess(process);
     }
   }
 
-  private static class PidKillerFactory implements ProcessFactory {
+  private static class PidKFactory implements ProcessFactory {
     public SystemProcess create(Process process) {
       return Processes.newPidProcess(process);
     }
   }
 
-  private static class StandardKillFactory implements ProcessFactory {
+  private static class StandardFactory implements ProcessFactory {
     public SystemProcess create(Process process) {
       return Processes.newStandardProcess(process);
     }
