@@ -43,16 +43,21 @@ public final class PidUtil {
     private static Integer findMyPid() {
       Integer result = null;
       try {
-        RuntimeMXBean rtb = ManagementFactory.getRuntimeMXBean();
+        if (SystemUtils.IS_JAVA_9) {
+          result = getCurrentPIdOnJava9();
+        }
+        else {
+          RuntimeMXBean rtb = ManagementFactory.getRuntimeMXBean();
         /*
          * Avoid finding process name if possible as it does a DNS lookup for the "localhost".
          * In some VPN configurations it might take up to 5 seconds.
          */
-        result = SunPidUtil.tryGetPid(rtb);
-        if (result == null) {
-          String processName = rtb.getName();
-          result = getPidFromProcessName(processName);
-          log.debug("My process name: {}", processName);
+          result = SunPidUtil.tryGetPid(rtb);
+          if (result == null) {
+            String processName = rtb.getName();
+            result = getPidFromProcessName(processName);
+            log.debug("My process name: {}", processName);
+          }
         }
         log.debug("My PID: {}", result);
       }
@@ -98,7 +103,7 @@ public final class PidUtil {
     String type;
     try {
       if (SystemUtils.IS_JAVA_9) {
-        return getPIdFromJava9(process);
+        return getPIdOnJava9(process);
       }
       type = process.getClass().getName();
       if (type.equals("java.lang.UNIXProcess")) {
@@ -157,19 +162,32 @@ public final class PidUtil {
   // Java 9
 
   private static class Java9Pid {
-    private static final Method PID_METHOD;
+    private static final Method PROCESS_PID;
+    private static final Method PROCESS_HANDLE_CURRENT;
+    private static final Method PROCESS_HANDLE_PID;
     static {
       try {
-        PID_METHOD = Process.class.getMethod("pid");
+        PROCESS_PID = Process.class.getMethod("pid");
+        Class handle = Class.forName("java.lang.ProcessHandle");
+        PROCESS_HANDLE_CURRENT = handle.getMethod("current");
+        PROCESS_HANDLE_PID = handle.getMethod("pid");
       }
-      catch (NoSuchMethodException e) {
+      catch (Exception e) {
         throw new RuntimeException(e);
       }
     }
   }
 
-  private static int getPIdFromJava9(Process process) {
-    long pid = (Long) ReflectionUtil.invokeWithoutDeclaredExceptions(Java9Pid.PID_METHOD, process);
+  private static int getPIdOnJava9(Process process) {
+    return toInt((Long) ReflectionUtil.invokeWithoutDeclaredExceptions(Java9Pid.PROCESS_PID, process));
+  }
+
+  private static int getCurrentPIdOnJava9() throws Exception {
+    Object handle = Java9Pid.PROCESS_HANDLE_CURRENT.invoke(null);
+    return toInt((Long) Java9Pid.PROCESS_HANDLE_PID.invoke(handle));
+  }
+
+  private static int toInt(long pid) {
     if (pid < Integer.MIN_VALUE || pid > Integer.MAX_VALUE) {
       throw new IllegalStateException("PID is out of range: " + pid);
     }
