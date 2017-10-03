@@ -1,6 +1,6 @@
 package org.zeroturnaround.process.test.running;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 class ScriptSleepingProcessFactory extends SleepingProcessFactory {
 

@@ -3,9 +3,11 @@ package org.zeroturnaround.process;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zeroturnaround.process.win.Kernel32;
@@ -93,13 +95,17 @@ public final class PidUtil {
   }
 
   private static int doGetPid(Process process) {
-    String type = process.getClass().getName();
+    String type;
     try {
+      if (SystemUtils.IS_JAVA_9) {
+        return getPIdFromJava9(process);
+      }
+      type = process.getClass().getName();
       if (type.equals("java.lang.UNIXProcess")) {
         return getPidFromUnixProcess(process);
       }
       if (type.equals("java.lang.Win32Process") || type.equals("java.lang.ProcessImpl")) {
-        return getPidfromWin32Process(process);
+        return getPidFromWin32Process(process);
       }
     }
     catch (Exception e) {
@@ -129,10 +135,10 @@ public final class PidUtil {
    * @throws IllegalAccessException
    * @throws NoSuchFieldException
    *
-   * @see http://www.golesny.de/p/code/javagetpid
+   * See http://www.golesny.de/p/code/javagetpid
    */
-  private static int getPidfromWin32Process(Process process) throws NoSuchFieldException, IllegalAccessException {
-    return getPidfromHandle(getHandle(process));
+  private static int getPidFromWin32Process(Process process) throws NoSuchFieldException, IllegalAccessException {
+    return getPidFromHandle(getHandle(process));
   }
 
   private static long getHandle(Process process) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
@@ -141,11 +147,33 @@ public final class PidUtil {
     return f.getLong(process);
   }
 
-  private static int getPidfromHandle(long value) {
+  private static int getPidFromHandle(long value) {
     Kernel32 kernel = Kernel32.INSTANCE;
     W32API.HANDLE handle = new W32API.HANDLE();
     handle.setPointer(Pointer.createConstant(value));
     return kernel.GetProcessId(handle);
+  }
+
+  // Java 9
+
+  private static class Java9Pid {
+    private static final Method PID_METHOD;
+    static {
+      try {
+        PID_METHOD = Process.class.getMethod("pid");
+      }
+      catch (NoSuchMethodException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+
+  private static int getPIdFromJava9(Process process) {
+    long pid = (Long) ReflectionUtil.invokeWithoutDeclaredExceptions(Java9Pid.PID_METHOD, process);
+    if (pid < Integer.MIN_VALUE || pid > Integer.MAX_VALUE) {
+      throw new IllegalStateException("PID is out of range: " + pid);
+    }
+    return (int) pid;
   }
 
 }
