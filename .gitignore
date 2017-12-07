@@ -1,12 +1,12 @@
 
 .classpath
+.gradle
 .idea
 .project
 .settings
+build
+out
 target
-zt-process.iml
+*.iml
 *.log
-
 shutdown.started
-
-zt-process-killer.iml
