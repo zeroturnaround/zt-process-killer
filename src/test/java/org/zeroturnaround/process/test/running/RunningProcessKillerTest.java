@@ -115,7 +115,7 @@ public class RunningProcessKillerTest extends BaseKillerTest {
   public void testWaitWithTimeoutExceeds() throws Exception {
     javaLangProcess = sleepingProcessFactory.createSleepingProcess();
     SystemProcess killer = factory.create(javaLangProcess);
-    assertFalse(killer.waitFor(1, TimeUnit.SECONDS));
+    assertFalse("Expected that process does not finish in 1 second.", killer.waitFor(1, TimeUnit.SECONDS));
   }
 
   @Test
@@ -148,7 +148,7 @@ public class RunningProcessKillerTest extends BaseKillerTest {
           assertFalse(process.isAlive());
           if (sleepingProcessFactory.supportsShutdownFile()) {
             // Shutdown hook must have been started
-            assertTrue(Sleep.getFile().exists());
+            assertTrue("Expected to find " + Sleep.getFile().getAbsolutePath() + " to indicate that shutdown hooks were started.", Sleep.getFile().exists());
           }
         }
         catch (UnsupportedOperationException e) {
