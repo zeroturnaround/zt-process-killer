@@ -1,9 +1,14 @@
+def versionStr = file('version.txt').text.trim()
+
 group 'org.zeroturnaround'
-version '1.9-SNAPSHOT'
+version = versionStr
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.6
+tasks.withType(JavaCompile) {
+  sourceCompatibility = JavaVersion.VERSION_1_6
+  targetCompatibility = JavaVersion.VERSION_1_6
+}
 
 repositories {
   mavenCentral()
@@ -19,3 +24,19 @@ dependencies {
   testCompile "junit:junit:4.11"
   testCompile "ch.qos.logback:logback-classic:1.1.1"
 }
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+  classifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  classifier = 'javadoc'
+  from javadoc.destinationDir
+}
+
+build {
+  dependsOn sourcesJar, javadocJar
+}
+
+apply from: file('publishing.gradle')
