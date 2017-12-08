@@ -10,3 +10,4 @@ target
 *.iml
 *.log
 shutdown.started
+local.properties
