@@ -6,5 +6,5 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-  compile(project(':api'))
+  compile(project(':java8'))
 }

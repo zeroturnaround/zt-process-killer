@@ -42,6 +42,9 @@ public class Processes {
    * @return system process that represents the given input as described above.
    */
   public static JavaProcess newJavaProcess(Process process) {
+    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9)) {
+      return new Java9Process(process);
+    }
     if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_8)) {
       return new Java8Process(process);
     }
