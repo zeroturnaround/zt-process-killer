@@ -1,0 +1,7 @@
+apply plugin: 'java'
+
+dependencies {
+  compile(project(':api'))
+
+  compile "org.apache.commons:commons-lang3:3.5"
+}

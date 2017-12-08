@@ -1,1 +1,5 @@
 rootProject.name = 'zt-process-killer'
+
+include ':api'
+include ':java6'
+include ':java8'

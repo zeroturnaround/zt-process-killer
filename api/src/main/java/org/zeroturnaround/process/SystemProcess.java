@@ -17,9 +17,6 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * Some of the operations may be unsupported by throwing {@link UnsupportedOperationException}.
  * </p>
- *
- * @see Processes
- * @see ProcessUtil
  */
 public interface SystemProcess {
 
