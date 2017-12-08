@@ -1,5 +1,10 @@
 apply plugin: 'java'
 
+tasks.withType(JavaCompile) {
+  sourceCompatibility = JavaVersion.VERSION_1_6
+  targetCompatibility = JavaVersion.VERSION_1_6
+}
+
 dependencies {
   compile "org.slf4j:slf4j-api:1.7.6"
 }
