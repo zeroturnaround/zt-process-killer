@@ -2,6 +2,7 @@ package org.zeroturnaround.process;
 
 import java.util.Arrays;
 
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
@@ -41,8 +42,9 @@ public class Processes {
    * @return system process that represents the given input as described above.
    */
   public static JavaProcess newJavaProcess(Process process) {
-    if (Java8Process.isSupported())
+    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_8)) {
       return new Java8Process(process);
+    }
     return new JavaProcess(process);
   }
 

@@ -6,11 +6,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
-import org.zeroturnaround.process.Java8Process;
 import org.zeroturnaround.process.JavaProcess;
 import org.zeroturnaround.process.SystemProcess;
 
@@ -28,7 +28,7 @@ public class BaseKillerTest extends Assert {
   }
 
   protected static boolean isDestroyForcefullySupported(SystemProcess process) {
-    return SystemUtils.IS_OS_WINDOWS || !(process instanceof JavaProcess) || Java8Process.isSupported();
+    return SystemUtils.IS_OS_WINDOWS || !(process instanceof JavaProcess) || SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_8);
   }
 
   /**
