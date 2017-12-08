@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk9
 script:
-jdk_switcher use oraclejdk8
-java -version
-jdk_switcher use oraclejdk9
-./gradlew check
+  jdk_switcher use oraclejdk8
+  java -version
+  jdk_switcher use oraclejdk9
+  ./gradlew check
