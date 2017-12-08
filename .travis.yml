@@ -2,7 +2,13 @@ language: java
 jdk:
   - oraclejdk9
 script:
-  - jdk_switcher use oraclejdk8
-  - java -version
-  - jdk_switcher use oraclejdk9
-  - ./gradlew check
+  - jdk_switcher use oraclejdk6
+  - echo "java6.home=$JAVA_HOME" >> local.properties
+  - jdk_switcher use openjdk7
+  - echo "java7.home=$JAVA_HOME" >> local.properties
+  - jdk_switcher use openjdk8
+  - echo "java8.home=$JAVA_HOME" >> local.properties
+  - jdk_switcher use openjdk9
+  - echo "java9.home=$JAVA_HOME" >> local.properties
+  - cat local.properties
+  - ./gradlew test
