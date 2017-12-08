@@ -6,7 +6,7 @@ import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
- * Creates {@link org.zeroturnaround.process.SystemProcess} instances.
+ * Creates {@link SystemProcess} instances.
  */
 public class Processes {
 
