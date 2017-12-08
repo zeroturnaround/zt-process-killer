@@ -18,7 +18,7 @@ public class Processes {
    * @param process instance of an existing process started from JVM.
    * @return system process that represents the given input as described above.
    */
-  public static org.zeroturnaround.process.SystemProcess newStandardProcess(Process process) {
+  public static SystemProcess newStandardProcess(Process process) {
     return newStandardProcess(process, PidUtil.getPid(process));
   }
 
@@ -31,8 +31,8 @@ public class Processes {
    * @param pid PID of the same process.
    * @return system process that represents the given input as described above.
    */
-  public static org.zeroturnaround.process.SystemProcess newStandardProcess(Process process, int pid) {
-    return newProcessWithAtlernatives(newJavaProcess(process), newPidProcess(pid));
+  public static SystemProcess newStandardProcess(Process process, int pid) {
+    return newProcessWithAlternatives(newJavaProcess(process), newPidProcess(pid));
   }
 
   /**
@@ -67,6 +67,9 @@ public class Processes {
    * @return system process that represents the given input as described above.
    */
   public static PidProcess newPidProcess(int pid) {
+    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9)) {
+      return HandleProcess.of(pid);
+    }
     if (SystemUtils.IS_OS_WINDOWS) {
       return new WindowsProcess(pid);
     }
@@ -83,7 +86,7 @@ public class Processes {
    * @return system process that represents the given inputs as described above.
    * @deprecated Use {@link #newProcessWithAlternatives(org.zeroturnaround.process.SystemProcess...)} instead.
    */
-  public static org.zeroturnaround.process.SystemProcess newProcessWithAtlernatives(org.zeroturnaround.process.SystemProcess... processes) {
+  public static SystemProcess newProcessWithAtlernatives(org.zeroturnaround.process.SystemProcess... processes) {
     return newProcessWithAlternatives(processes);
   }
 
@@ -92,7 +95,7 @@ public class Processes {
    * @param processes alternative process instances that represent a single process.
    * @return system process that represents the given inputs as described above.
    */
-  public static org.zeroturnaround.process.SystemProcess newProcessWithAlternatives(org.zeroturnaround.process.SystemProcess... processes) {
+  public static SystemProcess newProcessWithAlternatives(org.zeroturnaround.process.SystemProcess... processes) {
     return new OrProcess(Arrays.asList(processes));
   }
 
@@ -101,7 +104,7 @@ public class Processes {
    * @param processes process instances that represent different processes.
    * @return system process that represents the given inputs as described above.
    */
-  public static org.zeroturnaround.process.SystemProcess newProcessForMultiple(org.zeroturnaround.process.SystemProcess... processes) {
+  public static SystemProcess newProcessForMultiple(org.zeroturnaround.process.SystemProcess... processes) {
     return new AndProcess(Arrays.asList(processes));
   }
 

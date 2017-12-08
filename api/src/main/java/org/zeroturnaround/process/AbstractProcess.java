@@ -57,7 +57,7 @@ public abstract class AbstractProcess implements SystemProcess {
       service.submit(task).get(timeout, unit);
     }
     catch (ExecutionException e) {
-      throw new IllegalStateException("Error occured while waiting for process to finish:", e.getCause());
+      throw new IllegalStateException("Error occurred while waiting for process to finish:", e.getCause());
     }
     catch (TimeoutException e) {
       log.debug("{} is running too long", getDescription());

@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+tasks.withType(JavaCompile) {
+  sourceCompatibility = JavaVersion.VERSION_1_9
+  targetCompatibility = JavaVersion.VERSION_1_9
+}
+
+dependencies {
+  compile(project(':api'))
+}

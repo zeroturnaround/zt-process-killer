@@ -16,9 +16,10 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-  compile(project(':api')) { transitive = false }
-  compile(project(':java6')) { transitive = false }
-  compile(project(':java8')) { transitive = false }
+  compile(project(':api'))
+  compile(project(':java6'))
+  compile(project(':java8'))
+  compile(project(':java9'))
 
   compile "org.zeroturnaround:zt-exec:1.7"
   compile "net.java.dev.jna:jna:4.2.2"
