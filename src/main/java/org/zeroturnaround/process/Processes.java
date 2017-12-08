@@ -10,6 +10,57 @@ import org.apache.commons.lang3.SystemUtils;
  */
 public class Processes {
 
+  interface Factory {
+
+    JavaProcess newJavaProcess(Process process);
+
+    PidProcess newPidProcess(int pid);
+
+  }
+
+  static class Java6 implements Factory {
+    @Override public JavaProcess newJavaProcess(Process process) {
+      return new JavaProcess(process);
+    }
+    @Override public PidProcess newPidProcess(int pid) {
+      if (SystemUtils.IS_OS_WINDOWS) {
+        return new WindowsProcess(pid);
+      }
+      if (SystemUtils.IS_OS_SOLARIS || SystemUtils.IS_OS_SUN_OS) {
+        return new SolarisProcess(pid);
+      }
+      return new UnixProcess(pid);
+    }
+  }
+
+  static class Java8 extends Java6 {
+    @Override public JavaProcess newJavaProcess(Process process) {
+      return new Java8Process(process);
+    }
+  }
+
+  static class Java9 implements Factory {
+    @Override public JavaProcess newJavaProcess(Process process) {
+      return new Java9Process(process);
+    }
+
+    @Override public PidProcess newPidProcess(int pid) {
+      return HandleProcess.of(pid);
+    }
+  }
+
+  private static final Factory FACTORY = newFactory();
+
+  private static Factory newFactory() {
+    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9)) {
+      return new Java9();
+    }
+    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_8)) {
+      return new Java8();
+    }
+    return new Java6();
+  }
+
   /**
    * Creates an instance that represents the given {@link Process} by detecting its PID
    * using both, {@link Process} object and external tools.
@@ -42,13 +93,7 @@ public class Processes {
    * @return system process that represents the given input as described above.
    */
   public static JavaProcess newJavaProcess(Process process) {
-    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9)) {
-      return new Java9Process(process);
-    }
-    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_8)) {
-      return new Java8Process(process);
-    }
-    return new JavaProcess(process);
+    return FACTORY.newJavaProcess(process);
   }
 
   /**
@@ -70,16 +115,7 @@ public class Processes {
    * @return system process that represents the given input as described above.
    */
   public static PidProcess newPidProcess(int pid) {
-    if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9)) {
-      return HandleProcess.of(pid);
-    }
-    if (SystemUtils.IS_OS_WINDOWS) {
-      return new WindowsProcess(pid);
-    }
-    if (SystemUtils.IS_OS_SOLARIS || SystemUtils.IS_OS_SUN_OS) {
-      return new SolarisProcess(pid);
-    }
-    return new UnixProcess(pid);
+    return FACTORY.newPidProcess(pid);
   }
 
   /**
