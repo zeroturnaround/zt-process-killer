@@ -2,18 +2,8 @@ language: java
 jdk:
   - oraclejdk9
 script:
-  - jdk_switcher use oraclejdk7
-  - echo "java7.home=$JAVA_HOME" >> local.properties
-  - ls -la /usr/lib/jvm/java-7-oracle
-  - ls -la /usr/lib/jvm/java-7-oracle/bin
-  - ls -la /usr/lib/jvm/java-7-oracle/jre
-  - ls -la /usr/lib/jvm/java-7-oracle/jre/bin
   - jdk_switcher use oraclejdk8
   - echo "java8.home=$JAVA_HOME" >> local.properties
-  - ls -la /usr/lib/jvm/java-7-oracle
-  - ls -la /usr/lib/jvm/java-7-oracle/bin
-  - ls -la /usr/lib/jvm/java-7-oracle/jre
-  - ls -la /usr/lib/jvm/java-7-oracle/jre/bin
   - jdk_switcher use oraclejdk9
   - echo "java9.home=$JAVA_HOME" >> local.properties
   - cat local.properties
