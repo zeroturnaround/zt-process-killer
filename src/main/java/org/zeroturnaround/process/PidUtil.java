@@ -44,7 +44,7 @@ public final class PidUtil {
       Integer result = null;
       try {
         if (SystemUtils.IS_JAVA_9) {
-          result = getCurrentPIdOnJava9();
+          result = toInt(Java9PidUtil.getMyPid());
         }
         else {
           RuntimeMXBean rtb = ManagementFactory.getRuntimeMXBean();
@@ -161,30 +161,8 @@ public final class PidUtil {
 
   // Java 9
 
-  private static class Java9Pid {
-    private static final Method PROCESS_PID;
-    private static final Method PROCESS_HANDLE_CURRENT;
-    private static final Method PROCESS_HANDLE_PID;
-    static {
-      try {
-        PROCESS_PID = Process.class.getMethod("pid");
-        Class handle = Class.forName("java.lang.ProcessHandle");
-        PROCESS_HANDLE_CURRENT = handle.getMethod("current");
-        PROCESS_HANDLE_PID = handle.getMethod("pid");
-      }
-      catch (Exception e) {
-        throw new RuntimeException(e);
-      }
-    }
-  }
-
   private static int getPIdOnJava9(Process process) {
-    return toInt((Long) ReflectionUtil.invokeWithoutDeclaredExceptions(Java9Pid.PROCESS_PID, process));
-  }
-
-  private static int getCurrentPIdOnJava9() throws Exception {
-    Object handle = Java9Pid.PROCESS_HANDLE_CURRENT.invoke(null);
-    return toInt((Long) Java9Pid.PROCESS_HANDLE_PID.invoke(handle));
+    return toInt(Java9PidUtil.getPid(process));
   }
 
   private static int toInt(long pid) {
