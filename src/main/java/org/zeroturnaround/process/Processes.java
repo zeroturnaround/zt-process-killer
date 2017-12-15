@@ -16,12 +16,15 @@ public class Processes {
 
     PidProcess newPidProcess(int pid);
 
+    SystemProcess newStandardProcess(Process process, int pid);
+
   }
 
   static class Java6 implements Factory {
     @Override public JavaProcess newJavaProcess(Process process) {
       return new JavaProcess(process);
     }
+
     @Override public PidProcess newPidProcess(int pid) {
       if (SystemUtils.IS_OS_WINDOWS) {
         return new WindowsProcess(pid);
@@ -31,15 +34,25 @@ public class Processes {
       }
       return new UnixProcess(pid);
     }
+
+    @Override public SystemProcess newStandardProcess(Process process, int pid) {
+      // Java APIs are tried before using the external tools.
+      return newProcessWithAlternatives(newJavaProcess(process), newPidProcess(pid));
+    }
   }
 
   static class Java8 extends Java6 {
     @Override public JavaProcess newJavaProcess(Process process) {
       return new Java8Process(process);
     }
+
+    @Override public SystemProcess newStandardProcess(Process process, int pid) {
+      // Skip external tools as Java APIs can also destroy the process same way
+      return newJavaProcess(process);
+    }
   }
 
-  static class Java9 implements Factory {
+  static class Java9 extends Java8 {
     @Override public JavaProcess newJavaProcess(Process process) {
       return new Java9Process(process);
     }
@@ -83,7 +96,7 @@ public class Processes {
    * @return system process that represents the given input as described above.
    */
   public static SystemProcess newStandardProcess(Process process, int pid) {
-    return newProcessWithAlternatives(newJavaProcess(process), newPidProcess(pid));
+    return FACTORY.newStandardProcess(process, pid);
   }
 
   /**
