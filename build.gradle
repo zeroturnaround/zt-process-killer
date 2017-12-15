@@ -62,10 +62,9 @@ build {
 apply from: file('publishing.gradle')
 
 task testJava16(type: Test) { executable = getJavaExecutable(6) } // EOL, unsupported on Travis
-task testJava17(type: Test) { executable = getJavaExecutable(7) }
+task testJava17(type: Test) { executable = getJavaExecutable(7) } // broken on Travis
 task testJava18(type: Test) { executable = getJavaExecutable(8) }
 
 check {
-  dependsOn 'testJava17'
   dependsOn 'testJava18'
 }
