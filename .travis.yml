@@ -4,11 +4,15 @@ jdk:
 script:
   - jdk_switcher use openjdk6
   - echo "java6.home=$JAVA_HOME" >> local.properties
+  - which java
   - jdk_switcher use oraclejdk7
   - echo "java7.home=$JAVA_HOME" >> local.properties
+  - which java
   - jdk_switcher use oraclejdk8
   - echo "java8.home=$JAVA_HOME" >> local.properties
+  - which java
   - jdk_switcher use oraclejdk9
   - echo "java9.home=$JAVA_HOME" >> local.properties
+  - which java
   - cat local.properties
   - ./gradlew check
