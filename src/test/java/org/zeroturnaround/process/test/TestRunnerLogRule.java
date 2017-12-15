@@ -1,5 +1,6 @@
 package org.zeroturnaround.process.test;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
@@ -20,7 +21,7 @@ public class TestRunnerLogRule extends TestWatcher {
 
   @Override
   protected void starting(Description description) {
-    log.debug("{} started.", description);
+    log.debug("{} started with Java {}", description, SystemUtils.JAVA_VERSION);
   }
 
   @Override

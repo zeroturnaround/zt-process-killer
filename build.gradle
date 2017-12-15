@@ -1,4 +1,14 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'pink.madis.gradle:localprops:0.0.2'
+  }
+}
+
 apply plugin: 'java'
+apply plugin: 'pink.madis.gradle.localprops'
 
 def versionStr = file('version.txt').text.trim()
 allprojects {
@@ -8,6 +18,10 @@ allprojects {
   repositories {
     mavenCentral()
   }
+}
+
+File getJavaExecutable(int version) {
+  new File(project.localprops.get("java" + version + ".home") + "/bin/java")
 }
 
 tasks.withType(JavaCompile) {
@@ -46,3 +60,13 @@ build {
 }
 
 apply from: file('publishing.gradle')
+
+task testJava16(type: Test) { executable = getJavaExecutable(6) }
+task testJava17(type: Test) { executable = getJavaExecutable(7) }
+task testJava18(type: Test) { executable = getJavaExecutable(8) }
+
+check {
+  dependsOn 'testJava16'
+  dependsOn 'testJava17'
+  dependsOn 'testJava18'
+}

@@ -11,4 +11,4 @@ script:
   - jdk_switcher use oraclejdk9
   - echo "java9.home=$JAVA_HOME" >> local.properties
   - cat local.properties
-  - ./gradlew test
+  - ./gradlew check
