@@ -6,10 +6,10 @@ script:
   - echo "java6.home=$JAVA_HOME" >> local.properties
   - ls -la /usr/lib/jvm/java-6-openjdk-amd64
   - ls -la /usr/lib/jvm/java-6-openjdk-amd64/bin
+  - ls -la /usr/lib/jvm/java-6-openjdk-amd64/jre
+  - ls -la /usr/lib/jvm/java-6-openjdk-amd64/jre/bin
   - jdk_switcher use oraclejdk7
   - echo "java7.home=$JAVA_HOME" >> local.properties
-  - ls -la /usr/lib/jvm/java-6-openjdk-amd64
-  - ls -la /usr/lib/jvm/java-6-openjdk-amd64/bin
   - jdk_switcher use oraclejdk8
   - echo "java8.home=$JAVA_HOME" >> local.properties
   - jdk_switcher use oraclejdk9
