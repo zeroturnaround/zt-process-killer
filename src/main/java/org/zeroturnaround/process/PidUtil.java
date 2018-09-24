@@ -102,7 +102,7 @@ public final class PidUtil {
   private static int doGetPid(Process process) {
     String type;
     try {
-      if (SystemUtils.IS_JAVA_9) {
+      if (SystemUtils.IS_JAVA_9 || SystemUtils.IS_JAVA_10 || SystemUtils.IS_JAVA_11) {
         return getPIdOnJava9(process);
       }
       type = process.getClass().getName();
