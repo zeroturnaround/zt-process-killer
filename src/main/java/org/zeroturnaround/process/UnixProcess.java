@@ -2,46 +2,36 @@ package org.zeroturnaround.process;
 
 import java.io.IOException;
 
-import org.zeroturnaround.exec.InvalidExitValueException;
-import org.zeroturnaround.exec.MessageLoggers;
-import org.zeroturnaround.exec.ProcessExecutor;
-import org.zeroturnaround.exec.stream.slf4j.Slf4jStream;
+import com.sun.jna.Native;
+import org.zeroturnaround.process.unix.LibC;
 
 /**
  * Process implementation for UNIX PID values.
  * <p>
- * It uses the <code>kill</code> command for both checking the status and destroying the process.
+ * It uses the <code>getpgid</code> system call for checking the status and the <code>kill</code> one for
+ * destroying the process.
  * </p>
  */
 public class UnixProcess extends PidProcess {
-
-  private static final int EXIT_CODE_NO_SUCH_PROCESS = 1;
 
   public UnixProcess(int pid) {
     super(pid);
   }
 
-  public boolean isAlive() throws IOException, InterruptedException {
-    try {
-      new ProcessExecutor()
-      .commandSplit(String.format("kill -0 %d", pid)).readOutput(true)
-      .redirectOutput(Slf4jStream.ofCaller().asTrace())
-      .setMessageLogger(MessageLoggers.TRACE)
-      .exitValueNormal()
-      .executeNoTimeout();
+  public boolean isAlive() throws IOException {
+    if (LibC.INSTANCE.getpgid(pid) != -1) {
       return true;
     }
-    catch (InvalidExitValueException e) {
-      if (isNoSuchProcess(e)) {
-        return false;
-      }
-      throw e;
+    int errno = Native.getLastError();
+    if (errno == LibC.ESRCH) {
+      return false;
     }
+    throw new IOException("Error getting target process group - errno = " + errno);
   }
 
   @Override
-  public void destroy(boolean forceful) throws IOException, InterruptedException {
-    kill(forceful ? "kill" : "term");
+  public void destroy(boolean forceful) throws IOException {
+    kill(forceful ? LibC.SIGKILL : LibC.SIGTERM);
   }
 
   /**
@@ -50,30 +40,17 @@ public class UnixProcess extends PidProcess {
    * @param signal name of the signal.
    * @return <code>true</code> if this process received the signal, <code>false</code> if this process was not found (any more).
    *
-   * @throws IOException on IO error.
-   * @throws InterruptedException if interrupted.
+   * @throws IOException on system call error.
    */
-  public boolean kill(String signal) throws IOException, InterruptedException {
-    try {
-      new ProcessExecutor()
-      .commandSplit(String.format("kill -%s %d", signal, pid))
-      .redirectOutput(Slf4jStream.ofCaller().asDebug()).exitValueNormal().executeNoTimeout();
+  public boolean kill(int signal) throws IOException {
+    if (LibC.INSTANCE.kill(pid, signal) != -1) {
       return true;
     }
-    catch (InvalidExitValueException e) {
-      if (isNoSuchProcess(e)) {
-        return false;
-      }
-      throw e;
+    int errno = Native.getLastError();
+    if (errno == LibC.ESRCH) {
+      return false;
     }
-  }
-
-  /**
-   * @param e process exited with an error code.
-   * @return <code>true</code> if this exception indicates that the process was not found (any more).
-   */
-  protected boolean isNoSuchProcess(InvalidExitValueException e) {
-    return e.getExitValue() == EXIT_CODE_NO_SUCH_PROCESS;
+    throw new IOException("Error killing target process with signal " + signal + " - errno = " + errno);
   }
 
 }
