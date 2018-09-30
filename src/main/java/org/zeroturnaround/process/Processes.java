@@ -68,9 +68,6 @@ public class Processes {
     if (SystemUtils.IS_OS_WINDOWS) {
       return new WindowsProcess(pid);
     }
-    if (SystemUtils.IS_OS_SOLARIS || SystemUtils.IS_OS_SUN_OS) {
-      return new SolarisProcess(pid);
-    }
     return new UnixProcess(pid);
   }
 
