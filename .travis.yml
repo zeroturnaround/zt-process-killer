@@ -1,6 +1,11 @@
 language: java
 jdk:
+  - openjdk-ea
   - openjdk11
   - openjdk10
   - oraclejdk9
   - oraclejdk8
+
+matrix:
+  allow_failures:
+    - jdk: openjdk-ea
