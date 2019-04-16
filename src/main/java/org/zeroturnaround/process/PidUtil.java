@@ -115,7 +115,7 @@ public final class PidUtil {
       }
     }
     catch (Exception e) {
-      throw new IllegalStateException("Could not detect PID form " + process, e);
+      throw new IllegalStateException("Could not detect PID from " + process, e);
     }
     throw new IllegalArgumentException("Unknown process class " + type);
   }
