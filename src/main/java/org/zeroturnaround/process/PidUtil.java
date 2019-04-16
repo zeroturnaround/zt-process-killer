@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,7 +103,7 @@ public final class PidUtil {
   private static int doGetPid(Process process) {
     String type;
     try {
-      if (SystemUtils.IS_JAVA_9 || SystemUtils.IS_JAVA_10 || SystemUtils.IS_JAVA_11) {
+    	if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9)) {
         return getPIdOnJava9(process);
       }
       type = process.getClass().getName();
