@@ -2,6 +2,13 @@
   ZT Process Killer Changelog
 ********************************************
 
+1.10 (22nd April 2019)
+* Support for Java 12
+
+1.9 (26th September 2018)
+* Support for Java 9, 10, 11
+* Use system calls instead of spawning commands
+
 1.8 (15th August 2017)
 * Avoid calling InetAddress.getLocalHost() in PidUtil.getMyPid()
 
