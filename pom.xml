@@ -92,9 +92,7 @@
         <version>2.3.1</version>
         <configuration>
           <archive>
-            <manifestEntries>
-              <Specification-Version>${project.version}</Specification-Version>
-            </manifestEntries>
+            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
             <addMavenDescriptor>false</addMavenDescriptor>
           </archive>
         </configuration>
@@ -130,6 +128,26 @@
             <goals>
               <goal>jar</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>biz.aQute.bnd</groupId>
+        <artifactId>bnd-maven-plugin</artifactId>
+        <version>5.1.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>bnd-process</goal>
+            </goals>
+            <configuration>
+              <bnd><![CDATA[
+Specification-Version: ${version}
+Bundle-SymbolicName: org.zeroturnaround.zt-process-killer
+Export-Package:\
+ org.zeroturnaround.process.*
+           ]]></bnd>
+            </configuration>
           </execution>
         </executions>
       </plugin>
