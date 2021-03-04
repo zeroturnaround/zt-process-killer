@@ -37,12 +37,12 @@
     <dependency>
       <groupId>org.zeroturnaround</groupId>
       <artifactId>zt-exec</artifactId>
-      <version>1.7</version>
+      <version>1.12</version>
     </dependency>
     <dependency>
-      <groupId>net.java.dev.jna</groupId>
-      <artifactId>jna</artifactId>
-      <version>4.2.2</version>
+        <groupId>net.java.dev.jna</groupId>
+        <artifactId>jna</artifactId>
+        <version>5.7.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
