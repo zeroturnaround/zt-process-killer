@@ -2,6 +2,10 @@
   ZT Process Killer Changelog
 ********************************************
 
+1.11 (3rd August 2023)
+* Upgraded JNA dependency to 5.13.0 to fix Apple M1 Silicon issues
+* Upgraded logging dependencies' versions to fix security issues
+
 1.10 (22nd April 2019)
 * Support for Java 12
 
