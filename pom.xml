@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.zeroturnaround</groupId>
   <artifactId>zt-process-killer</artifactId>
-  <version>1.11-SNAPSHOT</version>
+  <version>1.11</version>
   <packaging>jar</packaging>
   <name>ZT Process Killer</name>
 
