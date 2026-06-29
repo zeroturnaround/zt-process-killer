@@ -1,7 +1,7 @@
 # ZT Process Killer
 
-### Continuous Integration 
-[![Build Status](https://travis-ci.org/zeroturnaround/zt-process-killer.png)](https://travis-ci.org/zeroturnaround/zt-process-killer)
+### Continuous Integration
+[![Build](https://github.com/zeroturnaround/zt-process-killer/actions/workflows/build.yml/badge.svg)](https://github.com/zeroturnaround/zt-process-killer/actions/workflows/build.yml)
 
 ### Quick Overview
 
@@ -9,21 +9,39 @@ The project was created in [ZeroTurnaround](http://zeroturnaround.com/) to have 
 It can stop processes started from Java (e.g. with [zt-exec](https://github.com/zeroturnaround/zt-exec)) as well as existing system processes based on their process ID (PID).
 
 ### Installation
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process-killer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.zeroturnaround/zt-process-killer)
+[![Maven Central](https://img.shields.io/maven-central/v/org.zeroturnaround/zt-process-killer.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/org.zeroturnaround/zt-process-killer)
 
-The project artifacts are available in [Maven Central Repository](http://search.maven.org/#browse%7C636943745).
+The project artifacts are available in [Maven Central Repository](https://central.sonatype.com/artifact/org.zeroturnaround/zt-process-killer).
 
-To include it in your maven project then you have to specify the dependency.
+Maven:
 
 ```xml
-...
 <dependency>
     <groupId>org.zeroturnaround</groupId>
     <artifactId>zt-process-killer</artifactId>
     <version>1.11</version>
 </dependency>
-...
 ```
+
+Gradle:
+
+```kotlin
+implementation("org.zeroturnaround:zt-process-killer:1.11")
+```
+
+The library requires Java 8 or later at runtime.
+
+### Building
+
+The project is built with [Gradle](https://gradle.org/) via the bundled wrapper, so no local
+Gradle installation is required:
+
+```sh
+./gradlew build
+```
+
+The library targets Java 8 bytecode. The build resolves a Java 8 toolchain automatically (it is
+downloaded on demand if not already installed), so the build itself runs on any modern JDK.
 
 ### Motivation
 
