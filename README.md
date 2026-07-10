@@ -53,6 +53,11 @@ Releases are cut with the **Release** GitHub Actions workflow (Actions → Relea
 It takes the release version (e.g. `1.12.0`) and then builds, publishes to Maven Central, tags
 the commit, creates the GitHub release, and sets the next development version.
 
+The workflow also promotes the `## [Unreleased]` section of [CHANGELOG.md](CHANGELOG.md) into a
+dated `## [x.y.z]` section and updates the comparison links, so the only changelog task is to make
+sure the changes being released are listed under `## [Unreleased]` beforehand. (The release fails
+if that section is empty.)
+
 ### Motivation
 
 In Java [Process.destroy()](https://docs.oracle.com/javase/8/docs/api/java/lang/Process.html#destroy--) is ambiguous.
