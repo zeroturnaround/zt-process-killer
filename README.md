@@ -43,6 +43,16 @@ Gradle installation is required:
 The library targets Java 8 bytecode. The build resolves a Java 8 toolchain automatically (it is
 downloaded on demand if not already installed), so the build itself runs on any modern JDK.
 
+### Releasing
+
+Versions follow [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`, e.g. `1.12.0`)
+and release tags use the `vMAJOR.MINOR.PATCH` form (e.g. `v1.12.0`). Tags created before this
+convention use the older `zt-process-killer-<version>` form.
+
+Releases are cut with the **Release** GitHub Actions workflow (Actions → Release → Run workflow).
+It takes the release version (e.g. `1.12.0`) and then builds, publishes to Maven Central, tags
+the commit, creates the GitHub release, and sets the next development version.
+
 ### Motivation
 
 In Java [Process.destroy()](https://docs.oracle.com/javase/8/docs/api/java/lang/Process.html#destroy--) is ambiguous.
