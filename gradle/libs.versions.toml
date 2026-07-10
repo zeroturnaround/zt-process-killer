@@ -6,7 +6,7 @@ commons-io = "2.7"
 slf4j = "1.6.3"
 junit = "4.13.1"
 bnd = "7.1.0"
-maven-publish = "0.35.0"
+maven-publish = "0.37.0"
 
 [libraries]
 zt-exec = { module = "org.zeroturnaround:zt-exec", version.ref = "zt-exec" }
