@@ -9,9 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The project is now built and released with Gradle instead of Maven. The published artifact is otherwise unchanged: the same `org.zeroturnaround:zt-process-killer` coordinates, the same OSGi bundle metadata, and the same runtime dependencies.
+- The project is now built and released with Gradle instead of Maven. This does not change the library's API or behaviour: the same `org.zeroturnaround:zt-process-killer` coordinates and the same OSGi bundle metadata.
 - `zt-exec`, `commons-lang3` and `commons-io` are now runtime-scoped dependencies (previously the default `compile` scope), so they are no longer on the consumer compile classpath. `jna` and `slf4j-api` stay on the compile classpath because they appear in the public API. Add a direct dependency if your own code compiles against any of the now-runtime libraries.
-- Documented Java 8 as the minimum supported version (the `jna` 5.13.0 dependency has required it since 1.11).
+- Updated dependencies: `zt-exec` 1.12 → 1.13.0, `jna` 5.13.0 → 5.19.1, `commons-lang3` 3.8.1 → 3.20.0, and `commons-io` 2.7 → 2.22.0.
+- Documented Java 8 as the minimum supported version (the `jna` dependency has required it since the 1.11 release).
 
 ## [1.11] - 2023-08-03
 
