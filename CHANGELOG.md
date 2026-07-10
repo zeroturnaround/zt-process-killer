@@ -81,8 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial public version.
 
-[Unreleased]: https://github.com/zeroturnaround/zt-process-killer/compare/e31e17e...HEAD
-[1.11]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.10...e31e17e
+[Unreleased]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.11...HEAD
+[1.11]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.10...zt-process-killer-1.11
 [1.10]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.9...zt-process-killer-1.10
 [1.9]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.8...zt-process-killer-1.9
 [1.8]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.7...zt-process-killer-1.8
