@@ -1,11 +1,11 @@
 [versions]
-zt-exec = "1.12"
-jna = "5.13.0"
-commons-lang3 = "3.8.1"
-commons-io = "2.7"
+zt-exec = "1.13.0"
+jna = "5.19.1"
+commons-lang3 = "3.20.0"
+commons-io = "2.22.0"
 slf4j = "1.6.3"
-junit = "4.13.1"
-bnd = "7.1.0"
+junit = "4.13.2"
+bnd = "7.3.0"
 maven-publish = "0.37.0"
 
 [libraries]
