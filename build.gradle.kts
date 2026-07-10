@@ -23,7 +23,7 @@ plugins {
 }
 
 group = "org.zeroturnaround"
-version = "1.12-SNAPSHOT"
+version = "1.12.0"
 description = "A library for stopping external processes from Java."
 
 repositories {

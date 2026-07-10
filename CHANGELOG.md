@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.12.0] - 2026-07-10
+
 ### Changed
 
 - The project is now built and released with Gradle instead of Maven. This does not change the library's API or behaviour: the same `org.zeroturnaround:zt-process-killer` coordinates and the same OSGi bundle metadata.
@@ -82,7 +84,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial public version.
 
-[Unreleased]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.11...HEAD
+[Unreleased]: https://github.com/zeroturnaround/zt-process-killer/compare/v1.12.0...HEAD
+[1.12.0]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.11...v1.12.0
 [1.11]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.10...zt-process-killer-1.11
 [1.10]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.9...zt-process-killer-1.10
 [1.9]: https://github.com/zeroturnaround/zt-process-killer/compare/zt-process-killer-1.8...zt-process-killer-1.9

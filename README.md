@@ -19,14 +19,14 @@ Maven:
 <dependency>
     <groupId>org.zeroturnaround</groupId>
     <artifactId>zt-process-killer</artifactId>
-    <version>1.11</version>
+    <version>1.12.0</version>
 </dependency>
 ```
 
 Gradle:
 
 ```kotlin
-implementation("org.zeroturnaround:zt-process-killer:1.11")
+implementation("org.zeroturnaround:zt-process-killer:1.12.0")
 ```
 
 The library requires Java 8 or later at runtime.
