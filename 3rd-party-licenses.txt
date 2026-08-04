@@ -3,8 +3,8 @@ ZT Process contains other open-source 3rd party software which are copyrighted t
 parties and are licensed under different terms and conditions. Reference to the websites of the
 corresponding vendors for additional details.
 
-* Copyright for Commons IO 2.2 and Commons Lang 2.6 is held by Apache Software Foundation.
-  Copyright for ZT Exec 1.7 is held by ZeroTurnaround Inc.
+* Copyright for Commons Lang is held by Apache Software Foundation.
+  Copyright for ZT Exec is held by ZeroTurnaround Inc.
   They are all licensed under the Apache Software License, version 2.0:
   
   

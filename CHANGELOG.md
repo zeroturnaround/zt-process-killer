@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `commons-io` is no longer a dependency of the published artifact. Nothing under `src/main` references it, so it is now a test-only dependency and no longer appears in the POM. `zt-exec` and `commons-lang3` are used from the main sources and stay runtime-scoped. Add a direct dependency if you were relying on `commons-io` arriving transitively.
+
 ## [1.12.0] - 2026-07-10
 
 ### Changed

@@ -51,19 +51,18 @@ dependencies {
   api(libs.jna)
   api(libs.slf4j.api)
 
-  // zt-exec, commons-lang3 and commons-io are used only inside method bodies and
-  // never appear in any exported signature, so they are `implementation`:
-  // consumers get them transitively at runtime but not on their compile classpath.
-  // This narrows the transitive compile scope versus the old POM, where the
-  // default `compile` scope put all of them on consumers' compile classpath.
-  // (commons-io is in fact referenced only from the test sources today, but it
-  // was a published runtime dependency, so it stays on the runtime classpath to
-  // preserve the artifact contract.)
+  // zt-exec and commons-lang3 are used only inside method bodies and never appear
+  // in any exported signature, so they are `implementation`: consumers get them
+  // transitively at runtime but not on their compile classpath. This narrows the
+  // transitive compile scope versus the old POM, where the default `compile` scope
+  // put them on consumers' compile classpath.
   implementation(libs.zt.exec)
   implementation(libs.commons.lang3)
-  implementation(libs.commons.io)
 
   testImplementation(libs.junit)
+  // commons-io is used only by the tests: nothing under src/main references it, as
+  // the generated OSGi Import-Package header shows.
+  testImplementation(libs.commons.io)
   // slf4j-simple is the slf4j binding for tests: no transitive dependencies and
   // released in lockstep with slf4j-api, so there is no separate version to track.
   testRuntimeOnly(libs.slf4j.simple)
