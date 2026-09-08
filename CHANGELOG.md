@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `commons-io` is no longer a dependency of the published artifact. Nothing under `src/main` references it, so it is now a test-only dependency and no longer appears in the POM. `zt-exec` and `commons-lang3` are used from the main sources and stay runtime-scoped. Add a direct dependency if you were relying on `commons-io` arriving transitively.
+- Updated dependencies: `slf4j` 1.6.3 → 1.7.36. This is the last release of the 1.x line. `slf4j-api` is on the consumer compile classpath, so this keeps the classic static binder and stays compatible with SLF4J 1.7 bindings such as Logback 1.2.x. A move to SLF4J 2.x needs a provider on the consumer side and is not part of this change.
 - `3rd-party-licenses.txt` now records that this project uses JNA under the Apache License, version 2.0. JNA is dual-licensed under either the LGPL, version 2.1 or later, or the Apache License, version 2.0, and the file previously listed only the LGPL, which implied an obligation that does not apply. The LGPL text it carried for that purpose is removed.
 
 ## [1.12.0] - 2026-07-10
